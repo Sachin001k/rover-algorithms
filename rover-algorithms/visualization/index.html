@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robot Vacuum Simulator - Visualizer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>🤖 Robot Vacuum Simulator - Visualizer</h1>
+
+    <div class="tabs">
+        <button class="tab-button active">Playback</button>
+        <button class="tab-button">Dashboard</button>
+    </div>
+
+    <!-- Playback Tab -->
+    <div class="tab-content active">
+        <div class="file-input-section">
+            <p>Load a trajectory JSON file to visualize the rover's path:</p>
+            <input type="file" id="trajectoryFile" accept=".json">
+            <button id="loadTrajectoryBtn">📂 Load Trajectory JSON</button>
+        </div>
+        <div id="playbackContainer">
+            <p style="color: #999;">Select a JSON file to begin playback</p>
+        </div>
+    </div>
+
+    <!-- Dashboard Tab -->
+    <div class="tab-content">
+        <div class="file-input-section">
+            <p>Load a CSV metrics file to compare algorithm performance:</p>
+            <input type="file" id="metricsFile" accept=".csv">
+            <button id="loadMetricsBtn">📂 Load Metrics CSV</button>
+        </div>
+        <div id="dashboardContainer">
+            <p style="color: #999;">Select a CSV file to view metrics dashboard</p>
+        </div>
+    </div>
+
+    <!-- Scripts in dependency order: classic scripts, no ES6 modules (file:// sandbox) -->
+    <script src="grid-renderer.js"></script>
+    <script src="playback.js"></script>
+    <script src="dashboard.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

@@ -3,7 +3,8 @@
 #include "NavUtils.h"
 
 SimulationResult Simulation::run(Grid grid, int startX, int startY,
-                                  Algorithm& algorithm, const SimulationConfig& config) {
+                                  Algorithm& algorithm, const SimulationConfig& config,
+                                  const StepCallback& onStep) {
     RoverState rover(startX, startY);
     algorithm.reset(grid, rover);
     grid.markCleaned(rover.x, rover.y);
@@ -33,6 +34,10 @@ SimulationResult Simulation::run(Grid grid, int startX, int startY,
         if (wasAlreadyCleaned) rover.revisits++;
 
         grid.markCleaned(nx, ny);
+
+        if (onStep) {
+            onStep(StepRecord{rover.steps, nx, ny, dir, wasAlreadyCleaned});
+        }
     }
 
     SimulationResult result;

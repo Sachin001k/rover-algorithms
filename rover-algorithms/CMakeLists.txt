@@ -15,5 +15,21 @@ add_executable(robot_vacuum_sim
     src/ZigZagRandomEscapeHybrid.cpp
     src/Simulation.cpp
     src/Metrics.cpp
+    src/JsonWriter.cpp
+    src/TrajectoryRecorder.cpp
     src/main.cpp
+)
+
+add_executable(robot_vacuum_interactive
+    src/Grid.cpp
+    src/RoomGenerator.cpp
+    src/ZigZagAlgorithm.cpp
+    src/RandomWalkAlgorithm.cpp
+    src/ZigZagWallFollowHybrid.cpp
+    src/ZigZagRandomEscapeHybrid.cpp
+    src/Simulation.cpp
+    src/Metrics.cpp
+    src/JsonWriter.cpp
+    src/TrajectoryRecorder.cpp
+    src/main_interactive.cpp
 )
