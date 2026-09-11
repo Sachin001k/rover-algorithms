@@ -1,8 +1,8 @@
 CMakeFiles/robot_vacuum_sim.dir/src/ZigZagRandomEscapeHybrid.cpp.o: \
-  /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/src/ZigZagRandomEscapeHybrid.cpp \
-  /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/include/ZigZagRandomEscapeHybrid.h \
-  /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/include/Algorithm.h \
-  /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/include/Grid.h \
+  /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/ZigZagRandomEscapeHybrid.cpp \
+  /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/include/ZigZagRandomEscapeHybrid.h \
+  /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/include/Algorithm.h \
+  /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/include/Grid.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/vector \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__config \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__config_site \
@@ -775,8 +775,8 @@ CMakeFiles/robot_vacuum_sim.dir/src/ZigZagRandomEscapeHybrid.cpp.o: \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale_dir/wbuffer_convert.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale_dir/wstring_convert.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/cstdarg \
-  /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/include/Rover.h \
-  /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/include/Direction.h \
+  /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/include/Rover.h \
+  /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/include/Direction.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/random \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__random/bernoulli_distribution.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__random/uniform_real_distribution.h \
@@ -853,4 +853,4 @@ CMakeFiles/robot_vacuum_sim.dir/src/ZigZagRandomEscapeHybrid.cpp.o: \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__random/student_t_distribution.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__random/uniform_random_bit_generator.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__random/weibull_distribution.h \
-  /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/include/NavUtils.h
+  /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/include/NavUtils.h

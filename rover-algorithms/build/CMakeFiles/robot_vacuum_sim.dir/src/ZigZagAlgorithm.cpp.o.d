@@ -1,8 +1,8 @@
 CMakeFiles/robot_vacuum_sim.dir/src/ZigZagAlgorithm.cpp.o: \
-  /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/src/ZigZagAlgorithm.cpp \
-  /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/include/ZigZagAlgorithm.h \
-  /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/include/Algorithm.h \
-  /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/include/Grid.h \
+  /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/ZigZagAlgorithm.cpp \
+  /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/include/ZigZagAlgorithm.h \
+  /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/include/Algorithm.h \
+  /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/include/Grid.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/vector \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__config \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__config_site \
@@ -775,6 +775,6 @@ CMakeFiles/robot_vacuum_sim.dir/src/ZigZagAlgorithm.cpp.o: \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale_dir/wbuffer_convert.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale_dir/wstring_convert.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/cstdarg \
-  /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/include/Rover.h \
-  /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/include/Direction.h \
-  /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/include/NavUtils.h
+  /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/include/Rover.h \
+  /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/include/Direction.h \
+  /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/include/NavUtils.h

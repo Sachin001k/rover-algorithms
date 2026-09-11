@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/robot_vacuum_sim.dir/src/Grid.cpp.o"
   "CMakeFiles/robot_vacuum_sim.dir/src/Grid.cpp.o.d"
+  "CMakeFiles/robot_vacuum_sim.dir/src/JsonWriter.cpp.o"
+  "CMakeFiles/robot_vacuum_sim.dir/src/JsonWriter.cpp.o.d"
   "CMakeFiles/robot_vacuum_sim.dir/src/Metrics.cpp.o"
   "CMakeFiles/robot_vacuum_sim.dir/src/Metrics.cpp.o.d"
   "CMakeFiles/robot_vacuum_sim.dir/src/RandomWalkAlgorithm.cpp.o"
@@ -9,6 +11,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/robot_vacuum_sim.dir/src/RoomGenerator.cpp.o.d"
   "CMakeFiles/robot_vacuum_sim.dir/src/Simulation.cpp.o"
   "CMakeFiles/robot_vacuum_sim.dir/src/Simulation.cpp.o.d"
+  "CMakeFiles/robot_vacuum_sim.dir/src/TrajectoryRecorder.cpp.o"
+  "CMakeFiles/robot_vacuum_sim.dir/src/TrajectoryRecorder.cpp.o.d"
   "CMakeFiles/robot_vacuum_sim.dir/src/ZigZagAlgorithm.cpp.o"
   "CMakeFiles/robot_vacuum_sim.dir/src/ZigZagAlgorithm.cpp.o.d"
   "CMakeFiles/robot_vacuum_sim.dir/src/ZigZagRandomEscapeHybrid.cpp.o"

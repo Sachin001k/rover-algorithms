@@ -1,7 +1,7 @@
 {
 	"InstallScripts" : 
 	[
-		"/Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/build/cmake_install.cmake"
+		"/Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/build/cmake_install.cmake"
 	],
 	"Parallel" : false
 }

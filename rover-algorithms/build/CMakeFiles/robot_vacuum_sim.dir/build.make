@@ -53,10 +53,10 @@ RM = /opt/homebrew/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp
+CMAKE_SOURCE_DIR = /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/build
+CMAKE_BINARY_DIR = /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/robot_vacuum_sim.dir/depend.make
@@ -73,130 +73,158 @@ CMakeFiles/robot_vacuum_sim.dir/codegen:
 .PHONY : CMakeFiles/robot_vacuum_sim.dir/codegen
 
 CMakeFiles/robot_vacuum_sim.dir/src/Grid.cpp.o: CMakeFiles/robot_vacuum_sim.dir/flags.make
-CMakeFiles/robot_vacuum_sim.dir/src/Grid.cpp.o: /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/src/Grid.cpp
+CMakeFiles/robot_vacuum_sim.dir/src/Grid.cpp.o: /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/Grid.cpp
 CMakeFiles/robot_vacuum_sim.dir/src/Grid.cpp.o: CMakeFiles/robot_vacuum_sim.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/robot_vacuum_sim.dir/src/Grid.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/robot_vacuum_sim.dir/src/Grid.cpp.o -MF CMakeFiles/robot_vacuum_sim.dir/src/Grid.cpp.o.d -o CMakeFiles/robot_vacuum_sim.dir/src/Grid.cpp.o -c /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/src/Grid.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/robot_vacuum_sim.dir/src/Grid.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/robot_vacuum_sim.dir/src/Grid.cpp.o -MF CMakeFiles/robot_vacuum_sim.dir/src/Grid.cpp.o.d -o CMakeFiles/robot_vacuum_sim.dir/src/Grid.cpp.o -c /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/Grid.cpp
 
 CMakeFiles/robot_vacuum_sim.dir/src/Grid.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/robot_vacuum_sim.dir/src/Grid.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/src/Grid.cpp > CMakeFiles/robot_vacuum_sim.dir/src/Grid.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/Grid.cpp > CMakeFiles/robot_vacuum_sim.dir/src/Grid.cpp.i
 
 CMakeFiles/robot_vacuum_sim.dir/src/Grid.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/robot_vacuum_sim.dir/src/Grid.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/src/Grid.cpp -o CMakeFiles/robot_vacuum_sim.dir/src/Grid.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/Grid.cpp -o CMakeFiles/robot_vacuum_sim.dir/src/Grid.cpp.s
 
 CMakeFiles/robot_vacuum_sim.dir/src/RoomGenerator.cpp.o: CMakeFiles/robot_vacuum_sim.dir/flags.make
-CMakeFiles/robot_vacuum_sim.dir/src/RoomGenerator.cpp.o: /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/src/RoomGenerator.cpp
+CMakeFiles/robot_vacuum_sim.dir/src/RoomGenerator.cpp.o: /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/RoomGenerator.cpp
 CMakeFiles/robot_vacuum_sim.dir/src/RoomGenerator.cpp.o: CMakeFiles/robot_vacuum_sim.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/robot_vacuum_sim.dir/src/RoomGenerator.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/robot_vacuum_sim.dir/src/RoomGenerator.cpp.o -MF CMakeFiles/robot_vacuum_sim.dir/src/RoomGenerator.cpp.o.d -o CMakeFiles/robot_vacuum_sim.dir/src/RoomGenerator.cpp.o -c /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/src/RoomGenerator.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/robot_vacuum_sim.dir/src/RoomGenerator.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/robot_vacuum_sim.dir/src/RoomGenerator.cpp.o -MF CMakeFiles/robot_vacuum_sim.dir/src/RoomGenerator.cpp.o.d -o CMakeFiles/robot_vacuum_sim.dir/src/RoomGenerator.cpp.o -c /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/RoomGenerator.cpp
 
 CMakeFiles/robot_vacuum_sim.dir/src/RoomGenerator.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/robot_vacuum_sim.dir/src/RoomGenerator.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/src/RoomGenerator.cpp > CMakeFiles/robot_vacuum_sim.dir/src/RoomGenerator.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/RoomGenerator.cpp > CMakeFiles/robot_vacuum_sim.dir/src/RoomGenerator.cpp.i
 
 CMakeFiles/robot_vacuum_sim.dir/src/RoomGenerator.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/robot_vacuum_sim.dir/src/RoomGenerator.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/src/RoomGenerator.cpp -o CMakeFiles/robot_vacuum_sim.dir/src/RoomGenerator.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/RoomGenerator.cpp -o CMakeFiles/robot_vacuum_sim.dir/src/RoomGenerator.cpp.s
 
 CMakeFiles/robot_vacuum_sim.dir/src/ZigZagAlgorithm.cpp.o: CMakeFiles/robot_vacuum_sim.dir/flags.make
-CMakeFiles/robot_vacuum_sim.dir/src/ZigZagAlgorithm.cpp.o: /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/src/ZigZagAlgorithm.cpp
+CMakeFiles/robot_vacuum_sim.dir/src/ZigZagAlgorithm.cpp.o: /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/ZigZagAlgorithm.cpp
 CMakeFiles/robot_vacuum_sim.dir/src/ZigZagAlgorithm.cpp.o: CMakeFiles/robot_vacuum_sim.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/robot_vacuum_sim.dir/src/ZigZagAlgorithm.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/robot_vacuum_sim.dir/src/ZigZagAlgorithm.cpp.o -MF CMakeFiles/robot_vacuum_sim.dir/src/ZigZagAlgorithm.cpp.o.d -o CMakeFiles/robot_vacuum_sim.dir/src/ZigZagAlgorithm.cpp.o -c /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/src/ZigZagAlgorithm.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/robot_vacuum_sim.dir/src/ZigZagAlgorithm.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/robot_vacuum_sim.dir/src/ZigZagAlgorithm.cpp.o -MF CMakeFiles/robot_vacuum_sim.dir/src/ZigZagAlgorithm.cpp.o.d -o CMakeFiles/robot_vacuum_sim.dir/src/ZigZagAlgorithm.cpp.o -c /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/ZigZagAlgorithm.cpp
 
 CMakeFiles/robot_vacuum_sim.dir/src/ZigZagAlgorithm.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/robot_vacuum_sim.dir/src/ZigZagAlgorithm.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/src/ZigZagAlgorithm.cpp > CMakeFiles/robot_vacuum_sim.dir/src/ZigZagAlgorithm.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/ZigZagAlgorithm.cpp > CMakeFiles/robot_vacuum_sim.dir/src/ZigZagAlgorithm.cpp.i
 
 CMakeFiles/robot_vacuum_sim.dir/src/ZigZagAlgorithm.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/robot_vacuum_sim.dir/src/ZigZagAlgorithm.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/src/ZigZagAlgorithm.cpp -o CMakeFiles/robot_vacuum_sim.dir/src/ZigZagAlgorithm.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/ZigZagAlgorithm.cpp -o CMakeFiles/robot_vacuum_sim.dir/src/ZigZagAlgorithm.cpp.s
 
 CMakeFiles/robot_vacuum_sim.dir/src/RandomWalkAlgorithm.cpp.o: CMakeFiles/robot_vacuum_sim.dir/flags.make
-CMakeFiles/robot_vacuum_sim.dir/src/RandomWalkAlgorithm.cpp.o: /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/src/RandomWalkAlgorithm.cpp
+CMakeFiles/robot_vacuum_sim.dir/src/RandomWalkAlgorithm.cpp.o: /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/RandomWalkAlgorithm.cpp
 CMakeFiles/robot_vacuum_sim.dir/src/RandomWalkAlgorithm.cpp.o: CMakeFiles/robot_vacuum_sim.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/robot_vacuum_sim.dir/src/RandomWalkAlgorithm.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/robot_vacuum_sim.dir/src/RandomWalkAlgorithm.cpp.o -MF CMakeFiles/robot_vacuum_sim.dir/src/RandomWalkAlgorithm.cpp.o.d -o CMakeFiles/robot_vacuum_sim.dir/src/RandomWalkAlgorithm.cpp.o -c /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/src/RandomWalkAlgorithm.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/robot_vacuum_sim.dir/src/RandomWalkAlgorithm.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/robot_vacuum_sim.dir/src/RandomWalkAlgorithm.cpp.o -MF CMakeFiles/robot_vacuum_sim.dir/src/RandomWalkAlgorithm.cpp.o.d -o CMakeFiles/robot_vacuum_sim.dir/src/RandomWalkAlgorithm.cpp.o -c /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/RandomWalkAlgorithm.cpp
 
 CMakeFiles/robot_vacuum_sim.dir/src/RandomWalkAlgorithm.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/robot_vacuum_sim.dir/src/RandomWalkAlgorithm.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/src/RandomWalkAlgorithm.cpp > CMakeFiles/robot_vacuum_sim.dir/src/RandomWalkAlgorithm.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/RandomWalkAlgorithm.cpp > CMakeFiles/robot_vacuum_sim.dir/src/RandomWalkAlgorithm.cpp.i
 
 CMakeFiles/robot_vacuum_sim.dir/src/RandomWalkAlgorithm.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/robot_vacuum_sim.dir/src/RandomWalkAlgorithm.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/src/RandomWalkAlgorithm.cpp -o CMakeFiles/robot_vacuum_sim.dir/src/RandomWalkAlgorithm.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/RandomWalkAlgorithm.cpp -o CMakeFiles/robot_vacuum_sim.dir/src/RandomWalkAlgorithm.cpp.s
 
 CMakeFiles/robot_vacuum_sim.dir/src/ZigZagWallFollowHybrid.cpp.o: CMakeFiles/robot_vacuum_sim.dir/flags.make
-CMakeFiles/robot_vacuum_sim.dir/src/ZigZagWallFollowHybrid.cpp.o: /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/src/ZigZagWallFollowHybrid.cpp
+CMakeFiles/robot_vacuum_sim.dir/src/ZigZagWallFollowHybrid.cpp.o: /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/ZigZagWallFollowHybrid.cpp
 CMakeFiles/robot_vacuum_sim.dir/src/ZigZagWallFollowHybrid.cpp.o: CMakeFiles/robot_vacuum_sim.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/robot_vacuum_sim.dir/src/ZigZagWallFollowHybrid.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/robot_vacuum_sim.dir/src/ZigZagWallFollowHybrid.cpp.o -MF CMakeFiles/robot_vacuum_sim.dir/src/ZigZagWallFollowHybrid.cpp.o.d -o CMakeFiles/robot_vacuum_sim.dir/src/ZigZagWallFollowHybrid.cpp.o -c /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/src/ZigZagWallFollowHybrid.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/robot_vacuum_sim.dir/src/ZigZagWallFollowHybrid.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/robot_vacuum_sim.dir/src/ZigZagWallFollowHybrid.cpp.o -MF CMakeFiles/robot_vacuum_sim.dir/src/ZigZagWallFollowHybrid.cpp.o.d -o CMakeFiles/robot_vacuum_sim.dir/src/ZigZagWallFollowHybrid.cpp.o -c /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/ZigZagWallFollowHybrid.cpp
 
 CMakeFiles/robot_vacuum_sim.dir/src/ZigZagWallFollowHybrid.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/robot_vacuum_sim.dir/src/ZigZagWallFollowHybrid.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/src/ZigZagWallFollowHybrid.cpp > CMakeFiles/robot_vacuum_sim.dir/src/ZigZagWallFollowHybrid.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/ZigZagWallFollowHybrid.cpp > CMakeFiles/robot_vacuum_sim.dir/src/ZigZagWallFollowHybrid.cpp.i
 
 CMakeFiles/robot_vacuum_sim.dir/src/ZigZagWallFollowHybrid.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/robot_vacuum_sim.dir/src/ZigZagWallFollowHybrid.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/src/ZigZagWallFollowHybrid.cpp -o CMakeFiles/robot_vacuum_sim.dir/src/ZigZagWallFollowHybrid.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/ZigZagWallFollowHybrid.cpp -o CMakeFiles/robot_vacuum_sim.dir/src/ZigZagWallFollowHybrid.cpp.s
 
 CMakeFiles/robot_vacuum_sim.dir/src/ZigZagRandomEscapeHybrid.cpp.o: CMakeFiles/robot_vacuum_sim.dir/flags.make
-CMakeFiles/robot_vacuum_sim.dir/src/ZigZagRandomEscapeHybrid.cpp.o: /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/src/ZigZagRandomEscapeHybrid.cpp
+CMakeFiles/robot_vacuum_sim.dir/src/ZigZagRandomEscapeHybrid.cpp.o: /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/ZigZagRandomEscapeHybrid.cpp
 CMakeFiles/robot_vacuum_sim.dir/src/ZigZagRandomEscapeHybrid.cpp.o: CMakeFiles/robot_vacuum_sim.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/robot_vacuum_sim.dir/src/ZigZagRandomEscapeHybrid.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/robot_vacuum_sim.dir/src/ZigZagRandomEscapeHybrid.cpp.o -MF CMakeFiles/robot_vacuum_sim.dir/src/ZigZagRandomEscapeHybrid.cpp.o.d -o CMakeFiles/robot_vacuum_sim.dir/src/ZigZagRandomEscapeHybrid.cpp.o -c /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/src/ZigZagRandomEscapeHybrid.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/robot_vacuum_sim.dir/src/ZigZagRandomEscapeHybrid.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/robot_vacuum_sim.dir/src/ZigZagRandomEscapeHybrid.cpp.o -MF CMakeFiles/robot_vacuum_sim.dir/src/ZigZagRandomEscapeHybrid.cpp.o.d -o CMakeFiles/robot_vacuum_sim.dir/src/ZigZagRandomEscapeHybrid.cpp.o -c /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/ZigZagRandomEscapeHybrid.cpp
 
 CMakeFiles/robot_vacuum_sim.dir/src/ZigZagRandomEscapeHybrid.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/robot_vacuum_sim.dir/src/ZigZagRandomEscapeHybrid.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/src/ZigZagRandomEscapeHybrid.cpp > CMakeFiles/robot_vacuum_sim.dir/src/ZigZagRandomEscapeHybrid.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/ZigZagRandomEscapeHybrid.cpp > CMakeFiles/robot_vacuum_sim.dir/src/ZigZagRandomEscapeHybrid.cpp.i
 
 CMakeFiles/robot_vacuum_sim.dir/src/ZigZagRandomEscapeHybrid.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/robot_vacuum_sim.dir/src/ZigZagRandomEscapeHybrid.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/src/ZigZagRandomEscapeHybrid.cpp -o CMakeFiles/robot_vacuum_sim.dir/src/ZigZagRandomEscapeHybrid.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/ZigZagRandomEscapeHybrid.cpp -o CMakeFiles/robot_vacuum_sim.dir/src/ZigZagRandomEscapeHybrid.cpp.s
 
 CMakeFiles/robot_vacuum_sim.dir/src/Simulation.cpp.o: CMakeFiles/robot_vacuum_sim.dir/flags.make
-CMakeFiles/robot_vacuum_sim.dir/src/Simulation.cpp.o: /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/src/Simulation.cpp
+CMakeFiles/robot_vacuum_sim.dir/src/Simulation.cpp.o: /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/Simulation.cpp
 CMakeFiles/robot_vacuum_sim.dir/src/Simulation.cpp.o: CMakeFiles/robot_vacuum_sim.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/robot_vacuum_sim.dir/src/Simulation.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/robot_vacuum_sim.dir/src/Simulation.cpp.o -MF CMakeFiles/robot_vacuum_sim.dir/src/Simulation.cpp.o.d -o CMakeFiles/robot_vacuum_sim.dir/src/Simulation.cpp.o -c /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/src/Simulation.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/robot_vacuum_sim.dir/src/Simulation.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/robot_vacuum_sim.dir/src/Simulation.cpp.o -MF CMakeFiles/robot_vacuum_sim.dir/src/Simulation.cpp.o.d -o CMakeFiles/robot_vacuum_sim.dir/src/Simulation.cpp.o -c /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/Simulation.cpp
 
 CMakeFiles/robot_vacuum_sim.dir/src/Simulation.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/robot_vacuum_sim.dir/src/Simulation.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/src/Simulation.cpp > CMakeFiles/robot_vacuum_sim.dir/src/Simulation.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/Simulation.cpp > CMakeFiles/robot_vacuum_sim.dir/src/Simulation.cpp.i
 
 CMakeFiles/robot_vacuum_sim.dir/src/Simulation.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/robot_vacuum_sim.dir/src/Simulation.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/src/Simulation.cpp -o CMakeFiles/robot_vacuum_sim.dir/src/Simulation.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/Simulation.cpp -o CMakeFiles/robot_vacuum_sim.dir/src/Simulation.cpp.s
 
 CMakeFiles/robot_vacuum_sim.dir/src/Metrics.cpp.o: CMakeFiles/robot_vacuum_sim.dir/flags.make
-CMakeFiles/robot_vacuum_sim.dir/src/Metrics.cpp.o: /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/src/Metrics.cpp
+CMakeFiles/robot_vacuum_sim.dir/src/Metrics.cpp.o: /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/Metrics.cpp
 CMakeFiles/robot_vacuum_sim.dir/src/Metrics.cpp.o: CMakeFiles/robot_vacuum_sim.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/robot_vacuum_sim.dir/src/Metrics.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/robot_vacuum_sim.dir/src/Metrics.cpp.o -MF CMakeFiles/robot_vacuum_sim.dir/src/Metrics.cpp.o.d -o CMakeFiles/robot_vacuum_sim.dir/src/Metrics.cpp.o -c /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/src/Metrics.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/robot_vacuum_sim.dir/src/Metrics.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/robot_vacuum_sim.dir/src/Metrics.cpp.o -MF CMakeFiles/robot_vacuum_sim.dir/src/Metrics.cpp.o.d -o CMakeFiles/robot_vacuum_sim.dir/src/Metrics.cpp.o -c /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/Metrics.cpp
 
 CMakeFiles/robot_vacuum_sim.dir/src/Metrics.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/robot_vacuum_sim.dir/src/Metrics.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/src/Metrics.cpp > CMakeFiles/robot_vacuum_sim.dir/src/Metrics.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/Metrics.cpp > CMakeFiles/robot_vacuum_sim.dir/src/Metrics.cpp.i
 
 CMakeFiles/robot_vacuum_sim.dir/src/Metrics.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/robot_vacuum_sim.dir/src/Metrics.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/src/Metrics.cpp -o CMakeFiles/robot_vacuum_sim.dir/src/Metrics.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/Metrics.cpp -o CMakeFiles/robot_vacuum_sim.dir/src/Metrics.cpp.s
+
+CMakeFiles/robot_vacuum_sim.dir/src/JsonWriter.cpp.o: CMakeFiles/robot_vacuum_sim.dir/flags.make
+CMakeFiles/robot_vacuum_sim.dir/src/JsonWriter.cpp.o: /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/JsonWriter.cpp
+CMakeFiles/robot_vacuum_sim.dir/src/JsonWriter.cpp.o: CMakeFiles/robot_vacuum_sim.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/robot_vacuum_sim.dir/src/JsonWriter.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/robot_vacuum_sim.dir/src/JsonWriter.cpp.o -MF CMakeFiles/robot_vacuum_sim.dir/src/JsonWriter.cpp.o.d -o CMakeFiles/robot_vacuum_sim.dir/src/JsonWriter.cpp.o -c /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/JsonWriter.cpp
+
+CMakeFiles/robot_vacuum_sim.dir/src/JsonWriter.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/robot_vacuum_sim.dir/src/JsonWriter.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/JsonWriter.cpp > CMakeFiles/robot_vacuum_sim.dir/src/JsonWriter.cpp.i
+
+CMakeFiles/robot_vacuum_sim.dir/src/JsonWriter.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/robot_vacuum_sim.dir/src/JsonWriter.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/JsonWriter.cpp -o CMakeFiles/robot_vacuum_sim.dir/src/JsonWriter.cpp.s
+
+CMakeFiles/robot_vacuum_sim.dir/src/TrajectoryRecorder.cpp.o: CMakeFiles/robot_vacuum_sim.dir/flags.make
+CMakeFiles/robot_vacuum_sim.dir/src/TrajectoryRecorder.cpp.o: /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/TrajectoryRecorder.cpp
+CMakeFiles/robot_vacuum_sim.dir/src/TrajectoryRecorder.cpp.o: CMakeFiles/robot_vacuum_sim.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/robot_vacuum_sim.dir/src/TrajectoryRecorder.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/robot_vacuum_sim.dir/src/TrajectoryRecorder.cpp.o -MF CMakeFiles/robot_vacuum_sim.dir/src/TrajectoryRecorder.cpp.o.d -o CMakeFiles/robot_vacuum_sim.dir/src/TrajectoryRecorder.cpp.o -c /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/TrajectoryRecorder.cpp
+
+CMakeFiles/robot_vacuum_sim.dir/src/TrajectoryRecorder.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/robot_vacuum_sim.dir/src/TrajectoryRecorder.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/TrajectoryRecorder.cpp > CMakeFiles/robot_vacuum_sim.dir/src/TrajectoryRecorder.cpp.i
+
+CMakeFiles/robot_vacuum_sim.dir/src/TrajectoryRecorder.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/robot_vacuum_sim.dir/src/TrajectoryRecorder.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/TrajectoryRecorder.cpp -o CMakeFiles/robot_vacuum_sim.dir/src/TrajectoryRecorder.cpp.s
 
 CMakeFiles/robot_vacuum_sim.dir/src/main.cpp.o: CMakeFiles/robot_vacuum_sim.dir/flags.make
-CMakeFiles/robot_vacuum_sim.dir/src/main.cpp.o: /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/src/main.cpp
+CMakeFiles/robot_vacuum_sim.dir/src/main.cpp.o: /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/main.cpp
 CMakeFiles/robot_vacuum_sim.dir/src/main.cpp.o: CMakeFiles/robot_vacuum_sim.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/robot_vacuum_sim.dir/src/main.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/robot_vacuum_sim.dir/src/main.cpp.o -MF CMakeFiles/robot_vacuum_sim.dir/src/main.cpp.o.d -o CMakeFiles/robot_vacuum_sim.dir/src/main.cpp.o -c /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/src/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/robot_vacuum_sim.dir/src/main.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/robot_vacuum_sim.dir/src/main.cpp.o -MF CMakeFiles/robot_vacuum_sim.dir/src/main.cpp.o.d -o CMakeFiles/robot_vacuum_sim.dir/src/main.cpp.o -c /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/main.cpp
 
 CMakeFiles/robot_vacuum_sim.dir/src/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/robot_vacuum_sim.dir/src/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/src/main.cpp > CMakeFiles/robot_vacuum_sim.dir/src/main.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/main.cpp > CMakeFiles/robot_vacuum_sim.dir/src/main.cpp.i
 
 CMakeFiles/robot_vacuum_sim.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/robot_vacuum_sim.dir/src/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/src/main.cpp -o CMakeFiles/robot_vacuum_sim.dir/src/main.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/src/main.cpp -o CMakeFiles/robot_vacuum_sim.dir/src/main.cpp.s
 
 # Object files for target robot_vacuum_sim
 robot_vacuum_sim_OBJECTS = \
@@ -208,6 +236,8 @@ robot_vacuum_sim_OBJECTS = \
 "CMakeFiles/robot_vacuum_sim.dir/src/ZigZagRandomEscapeHybrid.cpp.o" \
 "CMakeFiles/robot_vacuum_sim.dir/src/Simulation.cpp.o" \
 "CMakeFiles/robot_vacuum_sim.dir/src/Metrics.cpp.o" \
+"CMakeFiles/robot_vacuum_sim.dir/src/JsonWriter.cpp.o" \
+"CMakeFiles/robot_vacuum_sim.dir/src/TrajectoryRecorder.cpp.o" \
 "CMakeFiles/robot_vacuum_sim.dir/src/main.cpp.o"
 
 # External object files for target robot_vacuum_sim
@@ -221,10 +251,12 @@ robot_vacuum_sim: CMakeFiles/robot_vacuum_sim.dir/src/ZigZagWallFollowHybrid.cpp
 robot_vacuum_sim: CMakeFiles/robot_vacuum_sim.dir/src/ZigZagRandomEscapeHybrid.cpp.o
 robot_vacuum_sim: CMakeFiles/robot_vacuum_sim.dir/src/Simulation.cpp.o
 robot_vacuum_sim: CMakeFiles/robot_vacuum_sim.dir/src/Metrics.cpp.o
+robot_vacuum_sim: CMakeFiles/robot_vacuum_sim.dir/src/JsonWriter.cpp.o
+robot_vacuum_sim: CMakeFiles/robot_vacuum_sim.dir/src/TrajectoryRecorder.cpp.o
 robot_vacuum_sim: CMakeFiles/robot_vacuum_sim.dir/src/main.cpp.o
 robot_vacuum_sim: CMakeFiles/robot_vacuum_sim.dir/build.make
 robot_vacuum_sim: CMakeFiles/robot_vacuum_sim.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable robot_vacuum_sim"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking CXX executable robot_vacuum_sim"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/robot_vacuum_sim.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -236,6 +268,6 @@ CMakeFiles/robot_vacuum_sim.dir/clean:
 .PHONY : CMakeFiles/robot_vacuum_sim.dir/clean
 
 CMakeFiles/robot_vacuum_sim.dir/depend:
-	cd /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/build /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/build /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/build/CMakeFiles/robot_vacuum_sim.dir/DependInfo.cmake "--color=$(COLOR)" robot_vacuum_sim
+	cd /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/build /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/build /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/build/CMakeFiles/robot_vacuum_sim.dir/DependInfo.cmake "--color=$(COLOR)" robot_vacuum_sim
 .PHONY : CMakeFiles/robot_vacuum_sim.dir/depend
 

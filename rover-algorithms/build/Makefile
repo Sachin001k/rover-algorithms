@@ -57,10 +57,10 @@ RM = /opt/homebrew/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp
+CMAKE_SOURCE_DIR = /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/build
+CMAKE_BINARY_DIR = /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/build/CMakeFiles /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/build/CMakeFiles /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -129,12 +129,26 @@ robot_vacuum_sim/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_sim.dir/build.make CMakeFiles/robot_vacuum_sim.dir/build
 .PHONY : robot_vacuum_sim/fast
 
+#=============================================================================
+# Target rules for targets named robot_vacuum_interactive
+
+# Build rule for target.
+robot_vacuum_interactive: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 robot_vacuum_interactive
+.PHONY : robot_vacuum_interactive
+
+# fast build rule for target.
+robot_vacuum_interactive/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_interactive.dir/build.make CMakeFiles/robot_vacuum_interactive.dir/build
+.PHONY : robot_vacuum_interactive/fast
+
 src/Grid.o: src/Grid.cpp.o
 .PHONY : src/Grid.o
 
 # target to build an object file
 src/Grid.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_sim.dir/build.make CMakeFiles/robot_vacuum_sim.dir/src/Grid.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_interactive.dir/build.make CMakeFiles/robot_vacuum_interactive.dir/src/Grid.cpp.o
 .PHONY : src/Grid.cpp.o
 
 src/Grid.i: src/Grid.cpp.i
@@ -143,6 +157,7 @@ src/Grid.i: src/Grid.cpp.i
 # target to preprocess a source file
 src/Grid.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_sim.dir/build.make CMakeFiles/robot_vacuum_sim.dir/src/Grid.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_interactive.dir/build.make CMakeFiles/robot_vacuum_interactive.dir/src/Grid.cpp.i
 .PHONY : src/Grid.cpp.i
 
 src/Grid.s: src/Grid.cpp.s
@@ -151,7 +166,35 @@ src/Grid.s: src/Grid.cpp.s
 # target to generate assembly for a file
 src/Grid.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_sim.dir/build.make CMakeFiles/robot_vacuum_sim.dir/src/Grid.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_interactive.dir/build.make CMakeFiles/robot_vacuum_interactive.dir/src/Grid.cpp.s
 .PHONY : src/Grid.cpp.s
+
+src/JsonWriter.o: src/JsonWriter.cpp.o
+.PHONY : src/JsonWriter.o
+
+# target to build an object file
+src/JsonWriter.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_sim.dir/build.make CMakeFiles/robot_vacuum_sim.dir/src/JsonWriter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_interactive.dir/build.make CMakeFiles/robot_vacuum_interactive.dir/src/JsonWriter.cpp.o
+.PHONY : src/JsonWriter.cpp.o
+
+src/JsonWriter.i: src/JsonWriter.cpp.i
+.PHONY : src/JsonWriter.i
+
+# target to preprocess a source file
+src/JsonWriter.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_sim.dir/build.make CMakeFiles/robot_vacuum_sim.dir/src/JsonWriter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_interactive.dir/build.make CMakeFiles/robot_vacuum_interactive.dir/src/JsonWriter.cpp.i
+.PHONY : src/JsonWriter.cpp.i
+
+src/JsonWriter.s: src/JsonWriter.cpp.s
+.PHONY : src/JsonWriter.s
+
+# target to generate assembly for a file
+src/JsonWriter.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_sim.dir/build.make CMakeFiles/robot_vacuum_sim.dir/src/JsonWriter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_interactive.dir/build.make CMakeFiles/robot_vacuum_interactive.dir/src/JsonWriter.cpp.s
+.PHONY : src/JsonWriter.cpp.s
 
 src/Metrics.o: src/Metrics.cpp.o
 .PHONY : src/Metrics.o
@@ -159,6 +202,7 @@ src/Metrics.o: src/Metrics.cpp.o
 # target to build an object file
 src/Metrics.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_sim.dir/build.make CMakeFiles/robot_vacuum_sim.dir/src/Metrics.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_interactive.dir/build.make CMakeFiles/robot_vacuum_interactive.dir/src/Metrics.cpp.o
 .PHONY : src/Metrics.cpp.o
 
 src/Metrics.i: src/Metrics.cpp.i
@@ -167,6 +211,7 @@ src/Metrics.i: src/Metrics.cpp.i
 # target to preprocess a source file
 src/Metrics.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_sim.dir/build.make CMakeFiles/robot_vacuum_sim.dir/src/Metrics.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_interactive.dir/build.make CMakeFiles/robot_vacuum_interactive.dir/src/Metrics.cpp.i
 .PHONY : src/Metrics.cpp.i
 
 src/Metrics.s: src/Metrics.cpp.s
@@ -175,6 +220,7 @@ src/Metrics.s: src/Metrics.cpp.s
 # target to generate assembly for a file
 src/Metrics.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_sim.dir/build.make CMakeFiles/robot_vacuum_sim.dir/src/Metrics.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_interactive.dir/build.make CMakeFiles/robot_vacuum_interactive.dir/src/Metrics.cpp.s
 .PHONY : src/Metrics.cpp.s
 
 src/RandomWalkAlgorithm.o: src/RandomWalkAlgorithm.cpp.o
@@ -183,6 +229,7 @@ src/RandomWalkAlgorithm.o: src/RandomWalkAlgorithm.cpp.o
 # target to build an object file
 src/RandomWalkAlgorithm.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_sim.dir/build.make CMakeFiles/robot_vacuum_sim.dir/src/RandomWalkAlgorithm.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_interactive.dir/build.make CMakeFiles/robot_vacuum_interactive.dir/src/RandomWalkAlgorithm.cpp.o
 .PHONY : src/RandomWalkAlgorithm.cpp.o
 
 src/RandomWalkAlgorithm.i: src/RandomWalkAlgorithm.cpp.i
@@ -191,6 +238,7 @@ src/RandomWalkAlgorithm.i: src/RandomWalkAlgorithm.cpp.i
 # target to preprocess a source file
 src/RandomWalkAlgorithm.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_sim.dir/build.make CMakeFiles/robot_vacuum_sim.dir/src/RandomWalkAlgorithm.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_interactive.dir/build.make CMakeFiles/robot_vacuum_interactive.dir/src/RandomWalkAlgorithm.cpp.i
 .PHONY : src/RandomWalkAlgorithm.cpp.i
 
 src/RandomWalkAlgorithm.s: src/RandomWalkAlgorithm.cpp.s
@@ -199,6 +247,7 @@ src/RandomWalkAlgorithm.s: src/RandomWalkAlgorithm.cpp.s
 # target to generate assembly for a file
 src/RandomWalkAlgorithm.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_sim.dir/build.make CMakeFiles/robot_vacuum_sim.dir/src/RandomWalkAlgorithm.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_interactive.dir/build.make CMakeFiles/robot_vacuum_interactive.dir/src/RandomWalkAlgorithm.cpp.s
 .PHONY : src/RandomWalkAlgorithm.cpp.s
 
 src/RoomGenerator.o: src/RoomGenerator.cpp.o
@@ -207,6 +256,7 @@ src/RoomGenerator.o: src/RoomGenerator.cpp.o
 # target to build an object file
 src/RoomGenerator.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_sim.dir/build.make CMakeFiles/robot_vacuum_sim.dir/src/RoomGenerator.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_interactive.dir/build.make CMakeFiles/robot_vacuum_interactive.dir/src/RoomGenerator.cpp.o
 .PHONY : src/RoomGenerator.cpp.o
 
 src/RoomGenerator.i: src/RoomGenerator.cpp.i
@@ -215,6 +265,7 @@ src/RoomGenerator.i: src/RoomGenerator.cpp.i
 # target to preprocess a source file
 src/RoomGenerator.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_sim.dir/build.make CMakeFiles/robot_vacuum_sim.dir/src/RoomGenerator.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_interactive.dir/build.make CMakeFiles/robot_vacuum_interactive.dir/src/RoomGenerator.cpp.i
 .PHONY : src/RoomGenerator.cpp.i
 
 src/RoomGenerator.s: src/RoomGenerator.cpp.s
@@ -223,6 +274,7 @@ src/RoomGenerator.s: src/RoomGenerator.cpp.s
 # target to generate assembly for a file
 src/RoomGenerator.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_sim.dir/build.make CMakeFiles/robot_vacuum_sim.dir/src/RoomGenerator.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_interactive.dir/build.make CMakeFiles/robot_vacuum_interactive.dir/src/RoomGenerator.cpp.s
 .PHONY : src/RoomGenerator.cpp.s
 
 src/Simulation.o: src/Simulation.cpp.o
@@ -231,6 +283,7 @@ src/Simulation.o: src/Simulation.cpp.o
 # target to build an object file
 src/Simulation.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_sim.dir/build.make CMakeFiles/robot_vacuum_sim.dir/src/Simulation.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_interactive.dir/build.make CMakeFiles/robot_vacuum_interactive.dir/src/Simulation.cpp.o
 .PHONY : src/Simulation.cpp.o
 
 src/Simulation.i: src/Simulation.cpp.i
@@ -239,6 +292,7 @@ src/Simulation.i: src/Simulation.cpp.i
 # target to preprocess a source file
 src/Simulation.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_sim.dir/build.make CMakeFiles/robot_vacuum_sim.dir/src/Simulation.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_interactive.dir/build.make CMakeFiles/robot_vacuum_interactive.dir/src/Simulation.cpp.i
 .PHONY : src/Simulation.cpp.i
 
 src/Simulation.s: src/Simulation.cpp.s
@@ -247,7 +301,35 @@ src/Simulation.s: src/Simulation.cpp.s
 # target to generate assembly for a file
 src/Simulation.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_sim.dir/build.make CMakeFiles/robot_vacuum_sim.dir/src/Simulation.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_interactive.dir/build.make CMakeFiles/robot_vacuum_interactive.dir/src/Simulation.cpp.s
 .PHONY : src/Simulation.cpp.s
+
+src/TrajectoryRecorder.o: src/TrajectoryRecorder.cpp.o
+.PHONY : src/TrajectoryRecorder.o
+
+# target to build an object file
+src/TrajectoryRecorder.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_sim.dir/build.make CMakeFiles/robot_vacuum_sim.dir/src/TrajectoryRecorder.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_interactive.dir/build.make CMakeFiles/robot_vacuum_interactive.dir/src/TrajectoryRecorder.cpp.o
+.PHONY : src/TrajectoryRecorder.cpp.o
+
+src/TrajectoryRecorder.i: src/TrajectoryRecorder.cpp.i
+.PHONY : src/TrajectoryRecorder.i
+
+# target to preprocess a source file
+src/TrajectoryRecorder.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_sim.dir/build.make CMakeFiles/robot_vacuum_sim.dir/src/TrajectoryRecorder.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_interactive.dir/build.make CMakeFiles/robot_vacuum_interactive.dir/src/TrajectoryRecorder.cpp.i
+.PHONY : src/TrajectoryRecorder.cpp.i
+
+src/TrajectoryRecorder.s: src/TrajectoryRecorder.cpp.s
+.PHONY : src/TrajectoryRecorder.s
+
+# target to generate assembly for a file
+src/TrajectoryRecorder.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_sim.dir/build.make CMakeFiles/robot_vacuum_sim.dir/src/TrajectoryRecorder.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_interactive.dir/build.make CMakeFiles/robot_vacuum_interactive.dir/src/TrajectoryRecorder.cpp.s
+.PHONY : src/TrajectoryRecorder.cpp.s
 
 src/ZigZagAlgorithm.o: src/ZigZagAlgorithm.cpp.o
 .PHONY : src/ZigZagAlgorithm.o
@@ -255,6 +337,7 @@ src/ZigZagAlgorithm.o: src/ZigZagAlgorithm.cpp.o
 # target to build an object file
 src/ZigZagAlgorithm.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_sim.dir/build.make CMakeFiles/robot_vacuum_sim.dir/src/ZigZagAlgorithm.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_interactive.dir/build.make CMakeFiles/robot_vacuum_interactive.dir/src/ZigZagAlgorithm.cpp.o
 .PHONY : src/ZigZagAlgorithm.cpp.o
 
 src/ZigZagAlgorithm.i: src/ZigZagAlgorithm.cpp.i
@@ -263,6 +346,7 @@ src/ZigZagAlgorithm.i: src/ZigZagAlgorithm.cpp.i
 # target to preprocess a source file
 src/ZigZagAlgorithm.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_sim.dir/build.make CMakeFiles/robot_vacuum_sim.dir/src/ZigZagAlgorithm.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_interactive.dir/build.make CMakeFiles/robot_vacuum_interactive.dir/src/ZigZagAlgorithm.cpp.i
 .PHONY : src/ZigZagAlgorithm.cpp.i
 
 src/ZigZagAlgorithm.s: src/ZigZagAlgorithm.cpp.s
@@ -271,6 +355,7 @@ src/ZigZagAlgorithm.s: src/ZigZagAlgorithm.cpp.s
 # target to generate assembly for a file
 src/ZigZagAlgorithm.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_sim.dir/build.make CMakeFiles/robot_vacuum_sim.dir/src/ZigZagAlgorithm.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_interactive.dir/build.make CMakeFiles/robot_vacuum_interactive.dir/src/ZigZagAlgorithm.cpp.s
 .PHONY : src/ZigZagAlgorithm.cpp.s
 
 src/ZigZagRandomEscapeHybrid.o: src/ZigZagRandomEscapeHybrid.cpp.o
@@ -279,6 +364,7 @@ src/ZigZagRandomEscapeHybrid.o: src/ZigZagRandomEscapeHybrid.cpp.o
 # target to build an object file
 src/ZigZagRandomEscapeHybrid.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_sim.dir/build.make CMakeFiles/robot_vacuum_sim.dir/src/ZigZagRandomEscapeHybrid.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_interactive.dir/build.make CMakeFiles/robot_vacuum_interactive.dir/src/ZigZagRandomEscapeHybrid.cpp.o
 .PHONY : src/ZigZagRandomEscapeHybrid.cpp.o
 
 src/ZigZagRandomEscapeHybrid.i: src/ZigZagRandomEscapeHybrid.cpp.i
@@ -287,6 +373,7 @@ src/ZigZagRandomEscapeHybrid.i: src/ZigZagRandomEscapeHybrid.cpp.i
 # target to preprocess a source file
 src/ZigZagRandomEscapeHybrid.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_sim.dir/build.make CMakeFiles/robot_vacuum_sim.dir/src/ZigZagRandomEscapeHybrid.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_interactive.dir/build.make CMakeFiles/robot_vacuum_interactive.dir/src/ZigZagRandomEscapeHybrid.cpp.i
 .PHONY : src/ZigZagRandomEscapeHybrid.cpp.i
 
 src/ZigZagRandomEscapeHybrid.s: src/ZigZagRandomEscapeHybrid.cpp.s
@@ -295,6 +382,7 @@ src/ZigZagRandomEscapeHybrid.s: src/ZigZagRandomEscapeHybrid.cpp.s
 # target to generate assembly for a file
 src/ZigZagRandomEscapeHybrid.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_sim.dir/build.make CMakeFiles/robot_vacuum_sim.dir/src/ZigZagRandomEscapeHybrid.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_interactive.dir/build.make CMakeFiles/robot_vacuum_interactive.dir/src/ZigZagRandomEscapeHybrid.cpp.s
 .PHONY : src/ZigZagRandomEscapeHybrid.cpp.s
 
 src/ZigZagWallFollowHybrid.o: src/ZigZagWallFollowHybrid.cpp.o
@@ -303,6 +391,7 @@ src/ZigZagWallFollowHybrid.o: src/ZigZagWallFollowHybrid.cpp.o
 # target to build an object file
 src/ZigZagWallFollowHybrid.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_sim.dir/build.make CMakeFiles/robot_vacuum_sim.dir/src/ZigZagWallFollowHybrid.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_interactive.dir/build.make CMakeFiles/robot_vacuum_interactive.dir/src/ZigZagWallFollowHybrid.cpp.o
 .PHONY : src/ZigZagWallFollowHybrid.cpp.o
 
 src/ZigZagWallFollowHybrid.i: src/ZigZagWallFollowHybrid.cpp.i
@@ -311,6 +400,7 @@ src/ZigZagWallFollowHybrid.i: src/ZigZagWallFollowHybrid.cpp.i
 # target to preprocess a source file
 src/ZigZagWallFollowHybrid.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_sim.dir/build.make CMakeFiles/robot_vacuum_sim.dir/src/ZigZagWallFollowHybrid.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_interactive.dir/build.make CMakeFiles/robot_vacuum_interactive.dir/src/ZigZagWallFollowHybrid.cpp.i
 .PHONY : src/ZigZagWallFollowHybrid.cpp.i
 
 src/ZigZagWallFollowHybrid.s: src/ZigZagWallFollowHybrid.cpp.s
@@ -319,6 +409,7 @@ src/ZigZagWallFollowHybrid.s: src/ZigZagWallFollowHybrid.cpp.s
 # target to generate assembly for a file
 src/ZigZagWallFollowHybrid.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_sim.dir/build.make CMakeFiles/robot_vacuum_sim.dir/src/ZigZagWallFollowHybrid.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_interactive.dir/build.make CMakeFiles/robot_vacuum_interactive.dir/src/ZigZagWallFollowHybrid.cpp.s
 .PHONY : src/ZigZagWallFollowHybrid.cpp.s
 
 src/main.o: src/main.cpp.o
@@ -345,6 +436,30 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_sim.dir/build.make CMakeFiles/robot_vacuum_sim.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/main_interactive.o: src/main_interactive.cpp.o
+.PHONY : src/main_interactive.o
+
+# target to build an object file
+src/main_interactive.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_interactive.dir/build.make CMakeFiles/robot_vacuum_interactive.dir/src/main_interactive.cpp.o
+.PHONY : src/main_interactive.cpp.o
+
+src/main_interactive.i: src/main_interactive.cpp.i
+.PHONY : src/main_interactive.i
+
+# target to preprocess a source file
+src/main_interactive.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_interactive.dir/build.make CMakeFiles/robot_vacuum_interactive.dir/src/main_interactive.cpp.i
+.PHONY : src/main_interactive.cpp.i
+
+src/main_interactive.s: src/main_interactive.cpp.s
+.PHONY : src/main_interactive.s
+
+# target to generate assembly for a file
+src/main_interactive.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robot_vacuum_interactive.dir/build.make CMakeFiles/robot_vacuum_interactive.dir/src/main_interactive.cpp.s
+.PHONY : src/main_interactive.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -353,10 +468,14 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... robot_vacuum_interactive"
 	@echo "... robot_vacuum_sim"
 	@echo "... src/Grid.o"
 	@echo "... src/Grid.i"
 	@echo "... src/Grid.s"
+	@echo "... src/JsonWriter.o"
+	@echo "... src/JsonWriter.i"
+	@echo "... src/JsonWriter.s"
 	@echo "... src/Metrics.o"
 	@echo "... src/Metrics.i"
 	@echo "... src/Metrics.s"
@@ -369,6 +488,9 @@ help:
 	@echo "... src/Simulation.o"
 	@echo "... src/Simulation.i"
 	@echo "... src/Simulation.s"
+	@echo "... src/TrajectoryRecorder.o"
+	@echo "... src/TrajectoryRecorder.i"
+	@echo "... src/TrajectoryRecorder.s"
 	@echo "... src/ZigZagAlgorithm.o"
 	@echo "... src/ZigZagAlgorithm.i"
 	@echo "... src/ZigZagAlgorithm.s"
@@ -381,6 +503,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/main_interactive.o"
+	@echo "... src/main_interactive.i"
+	@echo "... src/main_interactive.s"
 .PHONY : help
 
 

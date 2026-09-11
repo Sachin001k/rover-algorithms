@@ -1,4 +1,4 @@
-# Install script for directory: /Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp
+# Install script for directory: /Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,7 +40,7 @@ endif()
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
 if(CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "/Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/build/install_local_manifest.txt"
+  file(WRITE "/Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/build/install_local_manifest.txt"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()
 if(CMAKE_INSTALL_COMPONENT)
@@ -56,6 +56,6 @@ else()
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "/Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/build/${CMAKE_INSTALL_MANIFEST}"
+  file(WRITE "/Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()

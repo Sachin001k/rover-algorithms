@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/Users/sachink/Documents/Projects/Dhruv_kediya/robot-vaccum/robot_vacuum_cpp/include
+CXX_INCLUDES = -I/Users/sachink/Documents/Projects/Dhruv_kediya/rover-algorithms/rover-algorithms/include
 
 CXX_FLAGSarm64 = -std=gnu++17 -arch arm64
 
