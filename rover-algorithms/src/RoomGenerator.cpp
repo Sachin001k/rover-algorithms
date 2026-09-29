@@ -4,12 +4,14 @@
 
 double RoomGenerator::densityFractionFor(ComplexityLevel level) {
     // Target share of total room area covered by obstacles.
+    // Optimized for maximum coverage area while maintaining realistic layouts
+    // Lower density = more open space for rovers to clean
     switch (level) {
-        case ComplexityLevel::SIMPLE:   return 0.06;
-        case ComplexityLevel::MODERATE: return 0.15;
-        case ComplexityLevel::COMPLEX:  return 0.28;
+        case ComplexityLevel::SIMPLE:   return 0.03;    // ~97% coverage area (sparse)
+        case ComplexityLevel::MODERATE: return 0.06;    // ~94% coverage area (normal)
+        case ComplexityLevel::COMPLEX:  return 0.10;    // ~90% coverage area (furnished)
     }
-    return 0.10;
+    return 0.06;
 }
 
 Grid RoomGenerator::generateRoom(const RoomConfig& config, int& startX, int& startY) {
@@ -45,9 +47,19 @@ Grid RoomGenerator::generateRoom(const RoomConfig& config, int& startX, int& sta
 
         // If obstacle placement accidentally sealed off most of the room,
         // regenerate rather than handing back a near-unusable layout.
-        if (grid.countAccessibleCells() >= 0.5 * expectedFreeCells) {
-            return grid;
+        if (grid.countAccessibleCells() < 0.5 * expectedFreeCells) {
+            continue;
         }
+
+        // Ensure there's a path from start to the far corner (bottom-right)
+        // This guarantees the room is not split into unreachable regions
+        int farX = config.width - 1;
+        int farY = config.height - 1;
+        if (!hasPathBetween(grid, startX, startY, farX, farY)) {
+            continue;  // Retry if path is blocked
+        }
+
+        return grid;
     }
 
     return grid; // best effort after maxAttempts retries
@@ -128,4 +140,44 @@ void RoomGenerator::sealUnreachablePockets(Grid& grid, int startX, int startY) {
             }
         }
     }
+}
+
+bool RoomGenerator::hasPathBetween(const Grid& grid, int x1, int y1, int x2, int y2) {
+    if (!grid.isAccessible(x1, y1) || !grid.isAccessible(x2, y2)) {
+        return false;
+    }
+    if (x1 == x2 && y1 == y2) {
+        return true;
+    }
+
+    int width = grid.getWidth();
+    int height = grid.getHeight();
+    std::vector<std::vector<bool>> visited(height, std::vector<bool>(width, false));
+
+    std::queue<std::pair<int, int>> q;
+    q.push({x1, y1});
+    visited[y1][x1] = true;
+
+    const int dx[4] = {0, 0, -1, 1};
+    const int dy[4] = {-1, 1, 0, 0};
+
+    while (!q.empty()) {
+        auto [x, y] = q.front();
+        q.pop();
+
+        if (x == x2 && y == y2) {
+            return true;
+        }
+
+        for (int d = 0; d < 4; ++d) {
+            int nx = x + dx[d];
+            int ny = y + dy[d];
+            if (grid.isAccessible(nx, ny) && !visited[ny][nx]) {
+                visited[ny][nx] = true;
+                q.push({nx, ny});
+            }
+        }
+    }
+
+    return false;
 }

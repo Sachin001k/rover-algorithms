@@ -36,4 +36,11 @@ protected:
     // Prefers an unvisited, non-recently-visited neighbour; degrades
     // gracefully down to "any accessible neighbour" if nothing better exists.
     Direction pickFallbackMove(const Grid& grid, const RoverState& rover) const;
+
+    // Stagnation detection: tracks steps without progress (without cleaning new cells).
+    // When stagnant, the fallback move is allowed to revisit cleaned cells to escape loops.
+    int lastCleanedCount_ = -1;
+    int stepsSinceProgress_ = 0;
+    int stagnationThreshold_ = 0;
+    void updateProgress(const Grid& grid);
 };

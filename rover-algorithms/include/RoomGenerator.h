@@ -33,4 +33,7 @@ private:
     static void placeObstacles(Grid& grid, double densityFraction, std::mt19937& rng);
     static void sealUnreachablePockets(Grid& grid, int startX, int startY);
     static double densityFractionFor(ComplexityLevel level);
+
+    // Verify that a path exists between two points using BFS
+    static bool hasPathBetween(const Grid& grid, int x1, int y1, int x2, int y2);
 };

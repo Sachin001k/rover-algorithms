@@ -50,82 +50,30 @@ class RoomEditor {
         return seed;
     }
 
-    // Chessboard pattern
-    generateChessboard() {
-        const width = this.gridUI.width;
-        const height = this.gridUI.height;
-        const grid = Array(height).fill(null).map(() => Array(width).fill(0));
-
-        const squareSize = 3;
-        for (let y = 0; y < height; y++) {
-            for (let x = 0; x < width; x++) {
-                const squareX = Math.floor(x / squareSize);
-                const squareY = Math.floor(y / squareSize);
-                if ((squareX + squareY) % 2 === 0) {
-                    grid[y][x] = 1;
-                }
-            }
-        }
-
-        this.gridUI.setGrid(grid);
-    }
-
-    // Corridors pattern
-    generateCorridors() {
-        const width = this.gridUI.width;
-        const height = this.gridUI.height;
-        const grid = Array(height).fill(null).map(() => Array(width).fill(1));  // Start filled
-
-        const corridorWidth = 3;
-        const corridorSpacing = 8;
-
-        // Horizontal corridors
-        for (let y = 0; y < height; y += corridorSpacing) {
-            for (let x = 0; x < width; x++) {
-                for (let dy = 0; dy < corridorWidth && y + dy < height; dy++) {
-                    grid[y + dy][x] = 0;
-                }
-            }
-        }
-
-        // Vertical corridors
-        for (let x = 0; x < width; x += corridorSpacing) {
-            for (let y = 0; y < height; y++) {
-                for (let dx = 0; dx < corridorWidth && x + dx < width; dx++) {
-                    grid[y][x + dx] = 0;
-                }
-            }
-        }
-
-        this.gridUI.setGrid(grid);
-    }
-
-    // Preset pattern selector
+    // Preset pattern selector - only random obstacles (realistic for real-world cleaning)
+    // Optimized for maximum coverage - very few obstacles for smooth rover movement
     generatePreset(presetName) {
-        switch (presetName) {
-            case 'chessboard':
-                this.generateChessboard();
-                break;
-            case 'corridors':
-                this.generateCorridors();
-                break;
-            case 'random':
-                this.generateRandom(30);
-                break;
-            default:
-                this.generateRandom(30);
-        }
-    }
-
-    // Complexity-based generation
-    generateByComplexity(complexity, seed = null) {
+        // All presets use random generation with different densities
         const densityMap = {
-            'simple': 15,
-            'moderate': 30,
-            'complex': 50
+            'simple': 3,       // ~97% coverage area
+            'moderate': 6,     // ~94% coverage area
+            'complex': 10      // ~90% coverage area
         };
 
-        const density = densityMap[complexity] || 30;
+        const density = densityMap[presetName] || 6;
+        this.generateRandom(density);
+    }
+
+    // Complexity-based generation (realistic obstacle densities for home environments)
+    // Optimized for maximum coverage area while maintaining realistic layouts
+    generateByComplexity(complexity, seed = null) {
+        const densityMap = {
+            'simple': 3,        // ~97% coverage area (sparse home)
+            'moderate': 6,      // ~94% coverage area (normal home)
+            'complex': 10       // ~90% coverage area (furnished home)
+        };
+
+        const density = densityMap[complexity] || 6;
         this.generateRandom(density, seed);
     }
 

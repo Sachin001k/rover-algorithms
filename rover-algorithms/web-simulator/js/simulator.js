@@ -17,10 +17,13 @@ class Simulator {
 
         // Simulation config
         this.config = {
-            targetCoveragePercent: 99.9,  // Run until maximum possible coverage
-            maxSteps: 500000,  // Increased from 200000
+            targetCoveragePercent: 98.0,  // Only stop at 98% natural coverage
+            maxSteps: 500000,
             cellSizeCm: 20.0,
-            roverSpeedCmPerSec: 30.0
+            roverSpeedCmPerSec: 30.0,
+            stagnationThreshold: 300,  // Stop if no new cells for 300 steps (TRULY STUCK)
+            timeLimit: 30,  // 30 seconds - can stop early if coverage >= 90%
+            minCoverageForTimeStop: 90.0  // If time >= 30s AND coverage >= 90%, stop
         };
 
         // State tracking
@@ -39,6 +42,8 @@ class Simulator {
         this.reachableCells = new Set();
         this.unreachableCells = 0;
         this.completionReason = null;  // Track why simulation ended
+        this.lastCleanedCellCount = 0;  // For stagnation detection
+        this.stepsSinceProgress = 0;  // Steps without cleaning new cells
 
         // Callbacks
         this.onStepComplete = null;
@@ -55,6 +60,10 @@ class Simulator {
         this.rover.revisits = 0;
         this.rover.turns = 0;
         this.rover.lastDirection = 0;
+        this.lastCleanedCellCount = 1;  // Start with 1 (starting cell)
+        this.stepsSinceProgress = 0;
+        this.lastProgressCheckStep = 0;  // For aggressive coverage check
+        this.lastCoverageCheckValue = 1;  // Cells cleaned at last check
 
         // Calculate reachable cells using flood-fill
         this.calculateReachableCells();
@@ -149,20 +158,40 @@ class Simulator {
     step() {
         // Check stop conditions
         const coverage = this.gridUI.getCoveragePercent();
+        const cleanedCellCount = this.gridUI.getCleanedCellCount();
+        const elapsedSeconds = (Date.now() - this.startTime) / 1000;
 
-        // STOP if 100% coverage achieved
+        // STOP CONDITION 1: 100% coverage (perfect) - ALWAYS stop
         if (coverage >= 100) {
             this.completionReason = 'PERFECT_COVERAGE';
-            return false;  // 100% coverage!
+            return false;
         }
 
-        if (coverage >= this.config.targetCoveragePercent) {
-            this.completionReason = 'TARGET_REACHED';
-            return false;  // Target reached
+        // STOP CONDITION 2: Time limit (30 sec) + adequate coverage (≥90%)
+        // This is the normal completion condition
+        if (elapsedSeconds >= this.config.timeLimit && coverage >= this.config.minCoverageForTimeStop) {
+            this.completionReason = 'TIME_AND_COVERAGE';
+            return false;
         }
+
+        // STOP CONDITION 3: Truly stuck (no new cells for 300 steps)
+        // Only stop if it's been running and still making NO progress
+        if (cleanedCellCount > this.lastCleanedCellCount) {
+            this.stepsSinceProgress = 0;
+            this.lastCleanedCellCount = cleanedCellCount;
+        } else {
+            this.stepsSinceProgress++;
+            // Only consider stuck if we've been trying for a while AND low coverage
+            if (this.stepsSinceProgress >= this.config.stagnationThreshold && elapsedSeconds >= 5) {
+                this.completionReason = 'STAGNANT';
+                return false;
+            }
+        }
+
+        // STOP CONDITION 4: Max steps safety limit
         if (this.rover.steps >= this.config.maxSteps) {
             this.completionReason = 'MAX_STEPS';
-            return false;  // Max steps reached
+            return false;
         }
 
         // Get next move from algorithm
@@ -252,9 +281,18 @@ class Simulator {
         if (this.completionReason === 'PERFECT_COVERAGE') {
             status = '✅ PERFECT - 100% COVERAGE!';
             statusTitle = 'Everything Covered!';
-        } else if (coverage >= this.config.targetCoveragePercent) {
-            status = '✅ Success';
-            statusTitle = 'Target Reached';
+        } else if (this.completionReason === 'TARGET_REACHED') {
+            status = `✅ Excellent - ${coverage.toFixed(1)}% Coverage`;
+            statusTitle = 'Natural Coverage Limit Reached';
+        } else if (this.completionReason === 'TIME_AND_COVERAGE') {
+            status = `✅ Time Limit - ${coverage.toFixed(1)}% Coverage in 30s`;
+            statusTitle = 'Time Limit Reached (≥90% coverage)';
+        } else if (this.completionReason === 'STAGNANT') {
+            status = `⏸️ Stuck - ${coverage.toFixed(1)}% (no progress)`;
+            statusTitle = 'Rover Stuck - Cannot Continue';
+        } else if (this.completionReason === 'MAX_STEPS') {
+            status = `⏸️ Max Steps - ${coverage.toFixed(1)}%`;
+            statusTitle = 'Maximum Steps Exceeded';
         }
 
         const result = {

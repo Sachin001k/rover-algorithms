@@ -1,11 +1,14 @@
 #include "ZigZagAlgorithm.h"
 #include "NavUtils.h"
 
-void ZigZagAlgorithm::reset(const Grid& /*grid*/, const RoverState& /*rover*/) {
+void ZigZagAlgorithm::reset(const Grid& grid, const RoverState& /*rover*/) {
     mode_ = Mode::SWEEP;
     horizontalDir_ = Direction::RIGHT;
     verticalShiftDir_ = Direction::DOWN;
     recentCells_.clear();
+    lastCleanedCount_ = -1;
+    stepsSinceProgress_ = 0;
+    stagnationThreshold_ = 2 * (grid.getWidth() + grid.getHeight());
 }
 
 void ZigZagAlgorithm::recordVisit(int x, int y) {
@@ -20,6 +23,16 @@ bool ZigZagAlgorithm::isRecent(int x, int y) const {
         if (p.first == x && p.second == y) return true;
     }
     return false;
+}
+
+void ZigZagAlgorithm::updateProgress(const Grid& grid) {
+    int cleaned = grid.countCleanedCells();
+    if (cleaned > lastCleanedCount_) {
+        stepsSinceProgress_ = 0;
+    } else {
+        stepsSinceProgress_++;
+    }
+    lastCleanedCount_ = cleaned;
 }
 
 Direction ZigZagAlgorithm::pickFallbackMove(const Grid& grid, const RoverState& rover) const {
@@ -55,6 +68,7 @@ Direction ZigZagAlgorithm::pickFallbackMove(const Grid& grid, const RoverState& 
 
 Direction ZigZagAlgorithm::getNextMove(const Grid& grid, const RoverState& rover) {
     recordVisit(rover.x, rover.y);
+    updateProgress(grid);
 
     if (mode_ == Mode::SWEEP) {
         if (canStep(grid, rover.x, rover.y, horizontalDir_)) {

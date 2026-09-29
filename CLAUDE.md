@@ -9,6 +9,7 @@ Transform the existing headless C++ grid-based coverage-path-planning simulator 
 4. Compare all 4 algorithms on the same room via a metrics dashboard
 5. Download results as JSON (trajectories) or CSV (metrics) for analysis
 
+
 **Why:** The simulator already validates 4 algorithms; visualization makes the findings accessible to humans and enables experimentation without rebuilding C++.
 
 ---
