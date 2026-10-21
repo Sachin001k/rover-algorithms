@@ -68,6 +68,7 @@ bool TrajectoryRecorder::writeToFile(const std::string& path, const SimulationRe
     file << "    \"cellSizeCm\": " << json::formatNumber(config_.cellSizeCm) << ",\n";
     file << "    \"roverSpeedCmPerSec\": " << json::formatNumber(config_.roverSpeedCmPerSec) << ",\n";
     file << "    \"targetCoveragePercent\": " << json::formatNumber(config_.targetCoveragePercent) << ",\n";
+    file << "    \"minCoveragePercent\": " << json::formatNumber(config_.minCoveragePercent) << ",\n";
     file << "    \"maxSteps\": " << config_.maxSteps << ",\n";
     file << "    \"algorithmSeed\": " << algorithmSeed_ << "\n";
     file << "  },\n";
@@ -93,7 +94,10 @@ bool TrajectoryRecorder::writeToFile(const std::string& path, const SimulationRe
     file << "    \"overlapRatio\": " << json::formatNumber(result.overlapRatio) << ",\n";
     file << "    \"travelDistanceCm\": " << json::formatNumber(result.travelDistanceCm) << ",\n";
     file << "    \"cleaningTimeSec\": " << json::formatNumber(result.cleaningTimeSec) << ",\n";
-    file << "    \"reachedTarget\": " << (result.reachedTarget ? "true" : "false") << "\n";
+    file << "    \"reachedTarget\": " << (result.reachedTarget ? "true" : "false") << ",\n";
+    file << "    \"fullCoverage\": " << (result.fullCoverage ? "true" : "false") << ",\n";
+    file << "    \"stepsToMinCoverage\": " << result.stepsToMinCoverage << ",\n";
+    file << "    \"timeToMinCoverageSec\": " << json::formatNumber(result.timeToMinCoverageSec) << "\n";
     file << "  }\n";
 
     file << "}\n";

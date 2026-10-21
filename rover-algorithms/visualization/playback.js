@@ -83,7 +83,7 @@ window.RVSim.Playback = class {
         if (this.state !== 'PLAYING') return;
 
         const now = performance.now();
-        const deltaMs = Math.min(now - this.lastTickTime, 100);
+        const deltaMs = Math.max(0, Math.min(now - this.lastTickTime, 100));
         this.lastTickTime = now;
 
         // Fractional accumulator: the old max(1, round(...)) played every

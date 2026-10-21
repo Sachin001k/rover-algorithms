@@ -170,6 +170,10 @@ window.RVSim.App = class {
         scrubLabel.style.display = 'block';
         scrubLabel.style.marginTop = '5px';
         scrubLabel.innerHTML = 'Step: <span id="stepLabel">0</span> / ' + jsonData.trajectory.length;
+        // Keep a direct reference: the first frame is drawn before these
+        // controls are attached to the page, so getElementById() returned
+        // null there and every trajectory failed to load.
+        const stepLabel = scrubLabel.querySelector('#stepLabel');
 
         scrubContainer.appendChild(scrubInput);
         scrubContainer.appendChild(scrubLabel);
@@ -211,7 +215,7 @@ window.RVSim.App = class {
             });
             renderer.drawRover(roverX, roverY, roverDir);
             lastRover = { x: roverX, y: roverY };
-            document.getElementById('stepLabel').textContent = stepIndex;
+            stepLabel.textContent = stepIndex;
             scrubInput.value = stepIndex;
         };
 

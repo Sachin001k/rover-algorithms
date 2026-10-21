@@ -140,6 +140,28 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <label for="stopCoverage">Stop at coverage</label>
+                    <select id="stopCoverage">
+                        <option value="95">95%</option>
+                        <option value="98">98%</option>
+                        <option value="99" selected>99%</option>
+                        <option value="100">100% (every cell)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="timeLimit">Time limit (simulated cleaning time)</label>
+                    <select id="timeLimit">
+                        <option value="30">30 min</option>
+                        <option value="60">1 hour</option>
+                        <option value="120" selected>2 hours</option>
+                        <option value="240">4 hours</option>
+                        <option value="0">No limit</option>
+                    </select>
+                    <p class="hint">After the limit, the run stops once coverage is at least 90%.</p>
+                </div>
+
                 <div class="button-group">
                     <button id="startBtn" class="btn btn-success">▶ Start</button>
                     <button id="pauseBtn" class="btn btn-warning" disabled>⏸ Pause</button>

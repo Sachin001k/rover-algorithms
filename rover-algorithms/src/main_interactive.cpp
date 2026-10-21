@@ -141,7 +141,12 @@ void printSummary(const SimulationResult& result) {
               << result.travelDistanceCm << " cm\n";
     std::cout << "Cleaning Time: " << std::setprecision(1)
               << result.cleaningTimeSec << " sec\n";
-    std::cout << "Reached Target: " << (result.reachedTarget ? "yes" : "no") << "\n";
+    std::cout << "Full Coverage (100%): " << (result.fullCoverage ? "yes" : "no") << "\n";
+    std::cout << "Passed (>= 90%): " << (result.reachedTarget ? "yes" : "no") << "\n";
+    if (result.stepsToMinCoverage >= 0) {
+        std::cout << "Reached 90% at: step " << result.stepsToMinCoverage << " ("
+                  << std::setprecision(1) << result.timeToMinCoverageSec << " sec)\n";
+    }
 }
 
 void runSingleAlgorithm(const Grid& pristineRoom, int startX, int startY,
@@ -253,9 +258,9 @@ void runCompareAll(const Grid& pristineRoom, int startX, int startY,
     // Print summary table
     std::cout << "\n=== Comparison Summary ===\n";
     std::cout << std::left << std::setw(25) << "Algorithm"
-              << std::setw(10) << "Steps" << std::setw(10) << "Coverage%"
+              << std::setw(10) << "Steps" << std::setw(10) << "Steps@90%" << std::setw(10) << "Coverage%"
               << std::setw(10) << "Overlap" << std::setw(10) << "Time(s)\n";
-    std::cout << std::string(65, '-') << "\n";
+    std::cout << std::string(75, '-') << "\n";
 
     for (size_t i = 0; i < results.size(); ++i) {
         const auto& r = results[i];
@@ -265,6 +270,7 @@ void runCompareAll(const Grid& pristineRoom, int startX, int startY,
         }
         std::cout << std::left << std::setw(25) << algoLabel
                   << std::setw(10) << r.steps
+                  << std::setw(10) << r.stepsToMinCoverage
                   << std::setw(10) << std::fixed << std::setprecision(1) << r.coveragePercent
                   << std::setw(10) << std::setprecision(4) << r.overlapRatio
                   << std::setw(10) << std::setprecision(1) << r.cleaningTimeSec << "\n";

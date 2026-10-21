@@ -120,7 +120,14 @@ window.RVSim.Dashboard = class {
             this.renderBarChart(container, coverageData, 'Coverage %', '%');
             this.renderBarChart(container, stepsData, 'Total Steps', 'steps');
             this.renderBarChart(container, overlapData, 'Overlap Ratio', '');
-            this.renderBarChart(container, timeData, 'Cleaning Time', 'sec');
+            this.renderBarChart(container, timeData, 'Cleaning Time (to 100% or stop)', 'sec');
+            // Newer CSVs also record when the 90% pass mark was crossed;
+            // -1 means a run never got there, so it is left out of the mean.
+            if ('time_to_min_coverage_sec' in rows[0]) {
+                const reached = rows.filter(r => parseFloat(r.time_to_min_coverage_sec) >= 0);
+                const time90Data = this.aggregateByAlgorithm(reached, 'time_to_min_coverage_sec');
+                this.renderBarChart(container, time90Data, 'Time to Reach 90%', 'sec');
+            }
             this.renderBarChart(container, turnsData, 'Number of Turns', 'turns');
 
             // Summary stats

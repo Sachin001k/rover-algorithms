@@ -9,8 +9,13 @@
 // Model parameters from section 2.2 / 2.5 (cleaning width, rover speed,
 // coverage stopping threshold, step cap).
 struct SimulationConfig {
-    double targetCoveragePercent = 90.0;
-    long maxSteps = 200000;
+    // A run keeps cleaning until ALL reachable floor is covered (or the
+    // step cap / algorithm stops it), so algorithms are compared on time to
+    // finish the job. minCoveragePercent is the pass mark: a run that stops
+    // early still "reaches target" if it got at least this far.
+    double targetCoveragePercent = 100.0;
+    double minCoveragePercent = 90.0;
+    long maxSteps = 1000000;
     double cellSizeCm = 20.0;        // matches the assumed cleaning width
     double roverSpeedCmPerSec = 30.0;
 };

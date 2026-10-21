@@ -16,15 +16,17 @@ class Simulator {
         };
 
         // Simulation config
-        // Same stopping rules as the C++ SimulationConfig (target coverage
-        // or step cap) so web and CLI results are comparable. The old
-        // wall-clock stop made results depend on machine/playback speed.
+        // Same rules as the C++ SimulationConfig so web and CLI results are
+        // comparable: keep cleaning until all reachable floor is covered
+        // (or the step cap stops it); 90% is the pass mark, and the step at
+        // which it was crossed is recorded so both times can be compared.
         this.config = {
-            targetCoveragePercent: 90.0,
-            maxSteps: 200000,
+            targetCoveragePercent: 100.0,  // "Stop at coverage" (set from the UI)
+            minCoveragePercent: 90.0,      // pass mark
+            timeLimitSec: 0,               // simulated cleaning time limit; 0 = none
+            maxSteps: 1000000,
             cellSizeCm: 20.0,
-            roverSpeedCmPerSec: 30.0,
-            stagnationFactor: 20  // safety stop: no new cell for 20 × reachable-cell-count steps
+            roverSpeedCmPerSec: 30.0
         };
 
         // State tracking
@@ -46,6 +48,7 @@ class Simulator {
         this.unreachableCells = 0;
         this.completionReason = null;  // Track why simulation ended
         this.lastCleanedCellCount = 0;  // For stagnation detection
+        this.stepsToMinCoverage = -1;   // first step at which the pass mark was hit
         this.stepsSinceProgress = 0;  // Steps without cleaning new cells
 
         // Callbacks
@@ -160,7 +163,7 @@ class Simulator {
         // Fractional step accumulator driven by real frame time. The old
         // max(1, round(speed / 60)) ran every speed below ~90 at 60 steps/s.
         const now = timestamp !== undefined ? timestamp : performance.now();
-        const dt = this.lastFrameTime === null ? 1000 / 60 : Math.min(now - this.lastFrameTime, 100);
+        const dt = this.lastFrameTime === null ? 1000 / 60 : Math.max(0, Math.min(now - this.lastFrameTime, 100));
         this.lastFrameTime = now;
         this.stepBudget += this.speed * dt / 1000;
         const stepsPerFrame = Math.floor(this.stepBudget);
@@ -184,7 +187,10 @@ class Simulator {
     step() {
         // Check stop conditions
         const coverage = this.getCoverage();
-        const cleanedCellCount = this.getCleanedCount();
+
+        if (this.stepsToMinCoverage < 0 && coverage >= this.config.minCoveragePercent) {
+            this.stepsToMinCoverage = this.rover.steps;
+        }
 
         // STOP CONDITION 1: every reachable cell cleaned
         if (coverage >= 100) {
@@ -192,24 +198,27 @@ class Simulator {
             return false;
         }
 
-        // STOP CONDITION 2: coverage target reached (normal completion)
+        // STOP CONDITION 2: the chosen "stop at coverage" level (e.g. 99%)
         if (coverage >= this.config.targetCoveragePercent) {
             this.completionReason = 'TARGET_REACHED';
             return false;
         }
 
-        // STOP CONDITION 3: safety net for a truly stuck algorithm
-        if (cleanedCellCount > this.lastCleanedCellCount) {
-            this.stepsSinceProgress = 0;
-            this.lastCleanedCellCount = cleanedCellCount;
-        } else {
-            this.stepsSinceProgress++;
-            const limit = this.config.stagnationFactor * Math.max(1, this.reachableCells.size);
-            if (this.stepsSinceProgress >= limit) {
-                this.completionReason = 'STAGNANT';
-                return false;
-            }
+        // STOP CONDITION 3: time limit passed and the 90% pass mark is met.
+        // Measured in SIMULATED cleaning time (steps × cell ÷ speed), not
+        // wall-clock time, so the rule is the same at any playback speed.
+        // Below 90% the run continues until it gets there.
+        const simTimeSec = this.rover.steps * this.config.cellSizeCm / this.config.roverSpeedCmPerSec;
+        if (this.config.timeLimitSec > 0 && simTimeSec >= this.config.timeLimitSec &&
+            coverage >= this.config.minCoveragePercent) {
+            this.completionReason = 'TIME_LIMIT';
+            return false;
         }
+
+        // No "stagnant" stop: every algorithm keeps making progress (the
+        // random ones just find the last corner cells slowly), and stopping
+        // them early cut legitimate runs short. maxSteps is the only cap,
+        // exactly as in the C++ simulator.
 
         // STOP CONDITION 4: Max steps safety limit
         if (this.rover.steps >= this.config.maxSteps) {
@@ -304,6 +313,9 @@ class Simulator {
         const avgSpeed = elapsed > 0 ? (this.rover.steps / elapsed).toFixed(1) : 0;
 
         // Determine status message
+        // A run that stopped before 100% still passes at >= 90%.
+        const passed = coverage >= this.config.minCoveragePercent;
+        const verdict = passed ? 'passed (≥90%)' : 'below the 90% minimum';
         let status = '⚠️ Incomplete';
         let statusTitle = 'Simulation Ended';
 
@@ -311,16 +323,19 @@ class Simulator {
             status = '✅ PERFECT - 100% COVERAGE!';
             statusTitle = 'Everything Covered!';
         } else if (this.completionReason === 'TARGET_REACHED') {
-            status = `✅ Excellent - ${coverage.toFixed(1)}% Coverage`;
+            status = `✅ ${coverage.toFixed(1)}% coverage (stop level ${this.config.targetCoveragePercent}%)`;
             statusTitle = 'Coverage Target Reached';
+        } else if (this.completionReason === 'TIME_LIMIT') {
+            status = `⏱️ ${coverage.toFixed(1)}% coverage when the ${Math.round(this.config.timeLimitSec / 60)} min limit passed, ${verdict}`;
+            statusTitle = 'Time Limit Reached';
         } else if (this.completionReason === 'ALGORITHM_GAVE_UP' || this.completionReason === 'INVALID_MOVE') {
-            status = `⏸️ Stopped - ${coverage.toFixed(1)}%`;
+            status = `⏸️ Stopped - ${coverage.toFixed(1)}%, ${verdict}`;
             statusTitle = 'Algorithm Stopped';
         } else if (this.completionReason === 'STAGNANT') {
-            status = `⏸️ Stuck - ${coverage.toFixed(1)}% (no progress)`;
+            status = `⏸️ Stuck - ${coverage.toFixed(1)}% (no progress), ${verdict}`;
             statusTitle = 'Rover Stuck - Cannot Continue';
         } else if (this.completionReason === 'MAX_STEPS') {
-            status = `⏸️ Max Steps - ${coverage.toFixed(1)}%`;
+            status = `⏸️ Max Steps - ${coverage.toFixed(1)}%, ${verdict}`;
             statusTitle = 'Maximum Steps Exceeded';
         }
 
@@ -334,7 +349,12 @@ class Simulator {
             revisitPercentage,
             travelDistanceCm: travelDistance,
             cleaningTimeSec: cleaningTime,
-            reachedTarget: coverage >= this.config.targetCoveragePercent,
+            reachedTarget: passed,
+            fullCoverage: coverage >= this.config.targetCoveragePercent,
+            stepsToMinCoverage: this.stepsToMinCoverage,
+            timeToMinCoverageSec: this.stepsToMinCoverage >= 0
+                ? this.stepsToMinCoverage * this.config.cellSizeCm / this.config.roverSpeedCmPerSec
+                : -1,
             elapsedSeconds: elapsed,
 
             // New metrics

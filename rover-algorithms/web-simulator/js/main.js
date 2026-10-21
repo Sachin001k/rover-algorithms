@@ -120,6 +120,8 @@ class RobotVacuumSimulator {
         // Create simulator
         this.simulator = new window.Simulator(this.gridUI, algorithm);
         this.simulator.setSpeed(parseInt(document.getElementById('speed').value));
+        this.simulator.config.targetCoveragePercent = parseFloat(document.getElementById('stopCoverage').value);
+        this.simulator.config.timeLimitSec = parseFloat(document.getElementById('timeLimit').value) * 60;
 
         // Setup callbacks
         this.simulator.onFrameUpdate = (metrics) => this.updateMetricsDisplay(metrics);
@@ -174,6 +176,8 @@ class RobotVacuumSimulator {
         document.getElementById('density').disabled = !enabled;
         document.getElementById('seed').disabled = !enabled;
         document.getElementById('algoSeed').disabled = !enabled;
+        document.getElementById('stopCoverage').disabled = !enabled;
+        document.getElementById('timeLimit').disabled = !enabled;
         document.querySelectorAll('input[name="algorithm"]').forEach(radio => {
             radio.disabled = !enabled;
         });
@@ -182,7 +186,7 @@ class RobotVacuumSimulator {
     updateMetricsDisplay(metrics) {
         document.getElementById('metricStep').textContent = metrics.step;
         document.getElementById('metricCoord').textContent = `(${metrics.x}, ${metrics.y})`;
-        document.getElementById('metricCoverage').textContent = metrics.coverage.toFixed(1) + '%';
+        document.getElementById('metricCoverage').textContent = (Math.floor(metrics.coverage * 10) / 10).toFixed(1) + '%';
         document.getElementById('metricDir').textContent = this.getDirectionName(metrics.direction);
         document.getElementById('metricRevisits').textContent = metrics.revisits;
         document.getElementById('metricTurns').textContent = metrics.turns;
@@ -191,7 +195,9 @@ class RobotVacuumSimulator {
         // Update progress bar
         const coverage = Math.min(metrics.coverage, 100);
         document.getElementById('progressFill').style.width = coverage + '%';
-        document.getElementById('progressLabel').textContent = Math.round(coverage) + '%';
+        // One decimal, rounded down: Math.round showed 99.9% as "100%" while
+        // the rover was still hunting the last cells.
+        document.getElementById('progressLabel').textContent = (Math.floor(coverage * 10) / 10).toFixed(1) + '%';
     }
 
     simulationComplete(result) {
@@ -295,6 +301,10 @@ class RobotVacuumSimulator {
                     <span style="color: #666;">Travel Distance:</span>
                     <strong>${(result.travelDistanceCm / 100).toFixed(1)}m</strong>
                 </div>
+                <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #eee;">
+                    <span style="color: #666;">Reached 90% at:</span>
+                    <strong>${result.stepsToMinCoverage >= 0 ? `step ${result.stepsToMinCoverage} (${result.timeToMinCoverageSec.toFixed(1)}s)` : 'not reached'}</strong>
+                </div>
                 <div style="display: flex; justify-content: space-between; padding: 8px 0;">
                     <span style="color: #666;">Cleaning Time:</span>
                     <strong>${result.cleaningTimeSec.toFixed(1)}s</strong>
@@ -381,6 +391,9 @@ class RobotVacuumSimulator {
                     </div>
                     <div style="background: white; padding: 12px; border-radius: 4px;">
                         <strong>Travel Distance:</strong> ${(result.travelDistanceCm / 100).toFixed(0)}m
+                    </div>
+                    <div style="background: white; padding: 12px; border-radius: 4px;">
+                        <strong>Reached 90% at:</strong> ${result.stepsToMinCoverage >= 0 ? `step ${result.stepsToMinCoverage} (${result.timeToMinCoverageSec.toFixed(1)}s)` : 'not reached'}
                     </div>
                     <div style="background: white; padding: 12px; border-radius: 4px;">
                         <strong>Cleaning Time:</strong> ${result.cleaningTimeSec.toFixed(1)}s

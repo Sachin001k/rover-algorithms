@@ -60,8 +60,9 @@ A trajectory JSON file contains:
   "config": {
     "cellSizeCm": 20.0,
     "roverSpeedCmPerSec": 30.0,
-    "targetCoveragePercent": 90.0,
-    "maxSteps": 200000,
+    "targetCoveragePercent": 100.0,
+    "minCoveragePercent": 90.0,
+    "maxSteps": 1000000,
     "algorithmSeed": 42000
   },
   "trajectoryFormat": ["x", "y", "dirCode", "revisit"],
@@ -75,14 +76,19 @@ A trajectory JSON file contains:
     "steps": 358,
     "revisits": 20,
     "turns": 42,
-    "coveragePercent": 90.2,
+    "coveragePercent": 100.0,
     "overlapRatio": 0.0559,
     "travelDistanceCm": 7160.0,
     "cleaningTimeSec": 238.7,
-    "reachedTarget": true
+    "reachedTarget": true,
+    "fullCoverage": true,
+    "stepsToMinCoverage": 331,
+    "timeToMinCoverageSec": 220.666667
   }
 }
 ```
+
+`reachedTarget` means the run reached the 90% pass mark (`minCoveragePercent`); `fullCoverage` means it reached `targetCoveragePercent` (100%), where runs normally stop. `stepsToMinCoverage` is the step at which 90% was crossed (-1 if never).
 
 ### Obstacle Bitmap
 

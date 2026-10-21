@@ -19,7 +19,10 @@ struct SimulationResult {
     double overlapRatio = 0.0;      // revisits / steps
     double travelDistanceCm = 0.0;
     double cleaningTimeSec = 0.0;
-    bool reachedTarget = false;
+    bool reachedTarget = false;      // coverage >= minCoveragePercent (pass mark)
+    bool fullCoverage = false;       // coverage >= targetCoveragePercent (100%)
+    long stepsToMinCoverage = -1;    // first step at which the pass mark was hit; -1 = never
+    double timeToMinCoverageSec = -1.0;
 
     static string csvHeader();
     string toCSVRow() const;

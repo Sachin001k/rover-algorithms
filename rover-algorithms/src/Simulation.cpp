@@ -8,6 +8,7 @@ SimulationResult Simulation::run(Grid grid, int startX, int startY,
     RoverState rover(startX, startY);
     algorithm.reset(grid, rover);
     grid.markCleaned(rover.x, rover.y);
+    long stepsToMin = grid.coveragePercent() >= config.minCoveragePercent ? 0 : -1;
 
     while (grid.coveragePercent() < config.targetCoveragePercent && rover.steps < config.maxSteps) {
         Direction dir = algorithm.getNextMove(grid, rover);
@@ -34,6 +35,9 @@ SimulationResult Simulation::run(Grid grid, int startX, int startY,
         if (wasAlreadyCleaned) rover.revisits++;
 
         grid.markCleaned(nx, ny);
+        if (stepsToMin < 0 && grid.coveragePercent() >= config.minCoveragePercent) {
+            stepsToMin = rover.steps;
+        }
 
         if (onStep) {
             onStep(StepRecord{rover.steps, nx, ny, dir, wasAlreadyCleaned});
@@ -51,7 +55,12 @@ SimulationResult Simulation::run(Grid grid, int startX, int startY,
         : 0.0;
     result.travelDistanceCm = static_cast<double>(rover.steps) * config.cellSizeCm;
     result.cleaningTimeSec = result.travelDistanceCm / config.roverSpeedCmPerSec;
-    result.reachedTarget = grid.coveragePercent() >= config.targetCoveragePercent;
+    result.reachedTarget = grid.coveragePercent() >= config.minCoveragePercent;
+    result.fullCoverage = grid.coveragePercent() >= config.targetCoveragePercent;
+    result.stepsToMinCoverage = stepsToMin;
+    result.timeToMinCoverageSec = stepsToMin >= 0
+        ? static_cast<double>(stepsToMin) * config.cellSizeCm / config.roverSpeedCmPerSec
+        : -1.0;
 
     return result;
 }
