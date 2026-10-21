@@ -109,6 +109,12 @@ window.RVSim.GridRenderer = class {
         }
     }
 
+    // Repaint one cell as cleaned, erasing anything (e.g. the rover) on it.
+    redrawCleanedCell(x, y) {
+        this.dynamicCtx.clearRect(x * this.cellPx, y * this.cellPx, this.cellPx, this.cellPx);
+        this.drawCleanedCell(x, y);
+    }
+
     reset() {
         this.dynamicCtx.clearRect(0, 0, this.dynamicCanvas.width, this.dynamicCanvas.height);
     }

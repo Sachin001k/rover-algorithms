@@ -38,7 +38,9 @@ protected:
     Direction pickFallbackMove(const Grid& grid, const RoverState& rover) const;
 
     // Stagnation detection: tracks steps without progress (without cleaning new cells).
-    // When stagnant, the fallback move is allowed to revisit cleaned cells to escape loops.
+    // When stagnant, the rover takes the shortest path to the nearest uncleaned
+    // cell (BFS) and resumes sweeping there, so a deterministic cycle can't
+    // run until maxSteps.
     int lastCleanedCount_ = -1;
     int stepsSinceProgress_ = 0;
     int stagnationThreshold_ = 0;

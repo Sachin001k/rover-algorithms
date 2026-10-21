@@ -70,6 +70,16 @@ Direction ZigZagAlgorithm::getNextMove(const Grid& grid, const RoverState& rover
     recordVisit(rover.x, rover.y);
     updateProgress(grid);
 
+    // Stagnation recovery: the sweep + local fallback is deterministic, so
+    // once it falls into a cycle over cleaned cells it would repeat it
+    // until maxSteps. After a long stretch with no new floor cleaned, walk
+    // the shortest path to the nearest uncleaned cell, then resume the
+    // sweep from there (progress resets the counter on arrival).
+    if (stepsSinceProgress_ >= stagnationThreshold_) {
+        mode_ = Mode::SWEEP;
+        return firstStepTowardNearestUncleaned(grid, rover.x, rover.y);
+    }
+
     if (mode_ == Mode::SWEEP) {
         if (canStep(grid, rover.x, rover.y, horizontalDir_)) {
             return horizontalDir_;

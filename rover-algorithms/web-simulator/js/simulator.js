@@ -7,8 +7,8 @@ class Simulator {
 
         // Rover state
         this.rover = {
-            x: gridUI.rover.x,
-            y: gridUI.rover.y,
+            x: gridUI.start.x,
+            y: gridUI.start.y,
             steps: 0,
             revisits: 0,
             turns: 0,
@@ -16,14 +16,15 @@ class Simulator {
         };
 
         // Simulation config
+        // Same stopping rules as the C++ SimulationConfig (target coverage
+        // or step cap) so web and CLI results are comparable. The old
+        // wall-clock stop made results depend on machine/playback speed.
         this.config = {
-            targetCoveragePercent: 98.0,  // Only stop at 98% natural coverage
-            maxSteps: 500000,
+            targetCoveragePercent: 90.0,
+            maxSteps: 200000,
             cellSizeCm: 20.0,
             roverSpeedCmPerSec: 30.0,
-            stagnationThreshold: 300,  // Stop if no new cells for 300 steps (TRULY STUCK)
-            timeLimit: 30,  // 30 seconds - can stop early if coverage >= 90%
-            minCoverageForTimeStop: 90.0  // If time >= 30s AND coverage >= 90%, stop
+            stagnationFactor: 20  // safety stop: no new cell for 20 × reachable-cell-count steps
         };
 
         // State tracking
@@ -36,6 +37,8 @@ class Simulator {
         this.currentAnimationStep = 0;
         this.animationProgress = 0;
         this.speed = 30;  // steps per second
+        this.stepBudget = 0;  // fractional steps carried between frames
+        this.lastFrameTime = null;
 
         // Metrics tracking
         this.visitedMap = Array(gridUI.height).fill(null).map(() => Array(gridUI.width).fill(0));
@@ -68,7 +71,10 @@ class Simulator {
         // Calculate reachable cells using flood-fill
         this.calculateReachableCells();
 
-        // Initialize grid (mark start position as cleaned)
+        // Start from a clean floor (a previous run may have left cleaned
+        // cells behind), then mark the start position as cleaned.
+        this.gridUI.clearCleaned();
+        this.gridUI.resetRover();
         this.gridUI.markCleaned(this.rover.x, this.rover.y);
         this.visitedMap[this.rover.y][this.rover.x]++;
 
@@ -105,6 +111,19 @@ class Simulator {
         this.unreachableCells = totalAccessible - this.reachableCells.size;
     }
 
+    // Cleaned cells: the start cell plus one per non-revisit step (O(1)).
+    getCleanedCount() {
+        return 1 + this.rover.steps - this.rover.revisits;
+    }
+
+    // Coverage of the floor the rover can actually reach. Using every
+    // non-obstacle cell as the denominator meant sealed-off pockets made
+    // the target impossible to hit.
+    getCoverage() {
+        const reachable = this.reachableCells.size;
+        return reachable > 0 ? (this.getCleanedCount() / reachable) * 100 : 100;
+    }
+
     pause() {
         this.paused = true;
         this.pausedTime = Date.now();
@@ -116,6 +135,7 @@ class Simulator {
             // Adjust start time to account for pause
             const pauseDuration = Date.now() - this.pausedTime;
             this.startTime += pauseDuration;
+            this.lastFrameTime = null;
             this.simulationLoop();
         }
     }
@@ -130,15 +150,21 @@ class Simulator {
     }
 
     setSpeed(stepsPerSecond) {
-        this.speed = Math.max(1, Math.min(stepsPerSecond, 120));
+        this.speed = Math.max(1, Math.min(stepsPerSecond, 5000));
     }
 
-    simulationLoop() {
+    simulationLoop(timestamp) {
         if (!this.running) return;
         if (this.paused) return;
 
-        // Process multiple steps per frame based on speed
-        const stepsPerFrame = Math.max(1, Math.round(this.speed / 60));
+        // Fractional step accumulator driven by real frame time. The old
+        // max(1, round(speed / 60)) ran every speed below ~90 at 60 steps/s.
+        const now = timestamp !== undefined ? timestamp : performance.now();
+        const dt = this.lastFrameTime === null ? 1000 / 60 : Math.min(now - this.lastFrameTime, 100);
+        this.lastFrameTime = now;
+        this.stepBudget += this.speed * dt / 1000;
+        const stepsPerFrame = Math.floor(this.stepBudget);
+        this.stepBudget -= stepsPerFrame;
 
         for (let i = 0; i < stepsPerFrame; i++) {
             if (!this.step()) {
@@ -152,37 +178,34 @@ class Simulator {
         this.updateDisplay();
 
         // Continue loop
-        this.animationFrameId = requestAnimationFrame(() => this.simulationLoop());
+        this.animationFrameId = requestAnimationFrame((t) => this.simulationLoop(t));
     }
 
     step() {
         // Check stop conditions
-        const coverage = this.gridUI.getCoveragePercent();
-        const cleanedCellCount = this.gridUI.getCleanedCellCount();
-        const elapsedSeconds = (Date.now() - this.startTime) / 1000;
+        const coverage = this.getCoverage();
+        const cleanedCellCount = this.getCleanedCount();
 
-        // STOP CONDITION 1: 100% coverage (perfect) - ALWAYS stop
+        // STOP CONDITION 1: every reachable cell cleaned
         if (coverage >= 100) {
             this.completionReason = 'PERFECT_COVERAGE';
             return false;
         }
 
-        // STOP CONDITION 2: Time limit (30 sec) + adequate coverage (≥90%)
-        // This is the normal completion condition
-        if (elapsedSeconds >= this.config.timeLimit && coverage >= this.config.minCoverageForTimeStop) {
-            this.completionReason = 'TIME_AND_COVERAGE';
+        // STOP CONDITION 2: coverage target reached (normal completion)
+        if (coverage >= this.config.targetCoveragePercent) {
+            this.completionReason = 'TARGET_REACHED';
             return false;
         }
 
-        // STOP CONDITION 3: Truly stuck (no new cells for 300 steps)
-        // Only stop if it's been running and still making NO progress
+        // STOP CONDITION 3: safety net for a truly stuck algorithm
         if (cleanedCellCount > this.lastCleanedCellCount) {
             this.stepsSinceProgress = 0;
             this.lastCleanedCellCount = cleanedCellCount;
         } else {
             this.stepsSinceProgress++;
-            // Only consider stuck if we've been trying for a while AND low coverage
-            if (this.stepsSinceProgress >= this.config.stagnationThreshold && elapsedSeconds >= 5) {
+            const limit = this.config.stagnationFactor * Math.max(1, this.reachableCells.size);
+            if (this.stepsSinceProgress >= limit) {
                 this.completionReason = 'STAGNANT';
                 return false;
             }
@@ -198,7 +221,8 @@ class Simulator {
         const direction = this.algorithm.getNextMove(this.gridUI, this.rover);
 
         if (direction === 0) {
-            return false;  // Algorithm gave up
+            this.completionReason = 'ALGORITHM_GAVE_UP';
+            return false;
         }
 
         // Apply move
@@ -208,7 +232,8 @@ class Simulator {
 
         // Validate move
         if (!this.gridUI.isAccessible(nx, ny)) {
-            return false;  // Invalid move
+            this.completionReason = 'INVALID_MOVE';
+            return false;
         }
 
         // Track turns
@@ -231,9 +256,12 @@ class Simulator {
         // Track visit count for heatmap
         this.visitedMap[ny][nx]++;
 
-        // Mark cell as cleaned
+        // Mark cell as cleaned (the canvas is redrawn once per frame in
+        // updateDisplay, not once per step)
         this.gridUI.markCleaned(nx, ny);
-        this.gridUI.setRoverPosition(nx, ny, direction);
+        this.gridUI.rover.x = nx;
+        this.gridUI.rover.y = ny;
+        this.gridUI.rover.direction = direction;
 
         // Callback
         if (this.onStepComplete) {
@@ -252,7 +280,8 @@ class Simulator {
     complete() {
         this.running = false;
 
-        const coverage = this.gridUI.getCoveragePercent();
+        this.gridUI.draw();
+        const coverage = this.getCoverage();
         const elapsed = (Date.now() - this.startTime) / 1000;
         const travelDistance = this.rover.steps * this.config.cellSizeCm;
         const cleaningTime = travelDistance / this.config.roverSpeedCmPerSec;
@@ -260,7 +289,7 @@ class Simulator {
         const revisitPercentage = this.rover.steps > 0 ? (this.rover.revisits / this.rover.steps) * 100 : 0;
 
         // Calculate efficiency metrics
-        const cellsCleaned = this.gridUI.getCleanedCellCount();
+        const cellsCleaned = this.getCleanedCount();
         const accessibleCells = this.gridUI.getAccessibleCellCount();
         const areaExplored = this.reachableCells.size;
         const areaExploredPercent = accessibleCells > 0 ? (this.reachableCells.size / accessibleCells) * 100 : 0;
@@ -283,10 +312,10 @@ class Simulator {
             statusTitle = 'Everything Covered!';
         } else if (this.completionReason === 'TARGET_REACHED') {
             status = `✅ Excellent - ${coverage.toFixed(1)}% Coverage`;
-            statusTitle = 'Natural Coverage Limit Reached';
-        } else if (this.completionReason === 'TIME_AND_COVERAGE') {
-            status = `✅ Time Limit - ${coverage.toFixed(1)}% Coverage in 30s`;
-            statusTitle = 'Time Limit Reached (≥90% coverage)';
+            statusTitle = 'Coverage Target Reached';
+        } else if (this.completionReason === 'ALGORITHM_GAVE_UP' || this.completionReason === 'INVALID_MOVE') {
+            status = `⏸️ Stopped - ${coverage.toFixed(1)}%`;
+            statusTitle = 'Algorithm Stopped';
         } else if (this.completionReason === 'STAGNANT') {
             status = `⏸️ Stuck - ${coverage.toFixed(1)}% (no progress)`;
             statusTitle = 'Rover Stuck - Cannot Continue';
@@ -341,7 +370,8 @@ class Simulator {
     }
 
     updateDisplay() {
-        const coverage = this.gridUI.getCoveragePercent();
+        this.gridUI.draw();
+        const coverage = this.getCoverage();
         const elapsed = (Date.now() - this.startTime) / 1000;
 
         if (this.onFrameUpdate) {

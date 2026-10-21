@@ -28,8 +28,7 @@ void writeResult(std::ofstream& out, SimulationResult result,
                   unsigned int seed, int trial) {
     result.roomLevel = level;
     result.roomWidth = width;
-    result.roomHeight = height;₹₹
-    
+    result.roomHeight = height;
     result.roomSeed = seed;
     result.trial = trial;
     out << result.toCSVRow() << "\n";

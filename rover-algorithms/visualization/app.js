@@ -51,11 +51,19 @@ window.RVSim.App = class {
                 }
             };
             reader.readAsText(file);
+            // Allow re-picking the same (regenerated) file to fire 'change' again
+            e.target.value = '';
         });
     }
 
     loadPlayback(jsonData) {
         const container = document.getElementById('playbackContainer');
+        // Stop the previous file's animation loop before discarding its DOM,
+        // otherwise it keeps running and writes into the new step label.
+        if (this.playback) {
+            this.playback.pause();
+            this.playback = null;
+        }
         container.innerHTML = '';
 
         try {
@@ -75,8 +83,15 @@ window.RVSim.App = class {
             dynamicCanvas.width = 800;
             dynamicCanvas.height = 600;
 
-            staticCanvas.style.position = 'absolute';
-            dynamicCanvas.style.position = 'absolute';
+            // Stack both layers exactly on top of each other; the global
+            // `canvas { margin; border }` rule offset them past the container.
+            [staticCanvas, dynamicCanvas].forEach(c => {
+                c.style.position = 'absolute';
+                c.style.left = '0';
+                c.style.top = '0';
+                c.style.margin = '0';
+                c.style.border = 'none';
+            });
 
             const canvasContainer = document.createElement('div');
             canvasContainer.style.position = 'relative';
@@ -174,17 +189,28 @@ window.RVSim.App = class {
 
         const renderer = new window.RVSim.GridRenderer(staticCanvas, dynamicCanvas, room);
         renderer.drawStatic();
+        // Shrink the container to the canvas size the renderer settled on.
+        if (staticCanvas.parentNode) {
+            staticCanvas.parentNode.style.width = staticCanvas.width + 'px';
+            staticCanvas.parentNode.style.height = staticCanvas.height + 'px';
+        }
 
         const playback = new window.RVSim.Playback(jsonData.trajectory, room);
-        playback.onFrame = (stepIndex, newCells, roverX, roverY, roverDir) => {
-            renderer.reset();
-            newCells.forEach(cellKey => {
+        this.playback = playback;
+        let lastRover = null;
+        playback.onFrame = (stepIndex, cells, roverX, roverY, roverDir, fullRedraw) => {
+            if (fullRedraw) {
+                renderer.reset();
+            } else if (lastRover) {
+                // Every cell the rover has stood on is cleaned.
+                renderer.redrawCleanedCell(lastRover.x, lastRover.y);
+            }
+            cells.forEach(cellKey => {
                 const [x, y] = cellKey.split(',').map(Number);
                 renderer.drawCleanedCell(x, y);
             });
-            if (stepIndex > 0) {
-                renderer.drawRover(roverX, roverY, roverDir);
-            }
+            renderer.drawRover(roverX, roverY, roverDir);
+            lastRover = { x: roverX, y: roverY };
             document.getElementById('stepLabel').textContent = stepIndex;
             scrubInput.value = stepIndex;
         };
@@ -258,6 +284,8 @@ window.RVSim.App = class {
                 }
             };
             reader.readAsText(file);
+            // Allow re-picking the same (regenerated) file to fire 'change' again
+            e.target.value = '';
         });
     }
 

@@ -65,7 +65,14 @@ unsigned int promptSeed(const std::string& label, unsigned int defaultSeed) {
     }
 
     try {
-        unsigned int seed = std::stoi(line);
+        // stoul + range check: stoi rejected seeds above 2^31 and let a
+        // negative input wrap silently to a huge unsigned value.
+        size_t used = 0;
+        unsigned long parsed = std::stoul(line, &used);
+        if (line.find('-') != std::string::npos || used != line.size() || parsed > 0xFFFFFFFFul) {
+            throw std::out_of_range("seed");
+        }
+        unsigned int seed = static_cast<unsigned int>(parsed);
         if (seed == 0) {
             // Return a "random" seed based on time
             return static_cast<unsigned int>(std::time(nullptr));

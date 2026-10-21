@@ -66,36 +66,47 @@ Direction ZigZagWallFollowHybrid::pickFallbackMove(const Grid& grid, const Rover
 Direction ZigZagWallFollowHybrid::getNextMove(const Grid& grid, const RoverState& rover) {
     recordVisit(rover.x, rover.y);
     updateProgress(grid);
-    bool stagnant = stepsSinceProgress_ >= stagnationThreshold_;
+
+    // Stagnation recovery (shared with ZigZagAlgorithm): wall-following only
+    // makes sense next to an obstacle, so a stall on open floor — or a
+    // wall-follow loop that keeps rejoining already-swept rows — is resolved
+    // by walking the shortest path to the nearest uncleaned cell instead.
+    if (stepsSinceProgress_ >= stagnationThreshold_) {
+        mode_ = Mode::SWEEP;
+        return firstStepTowardNearestUncleaned(grid, rover.x, rover.y);
+    }
 
     if (mode_ == Mode::SWEEP) {
-        if (!stagnant && canStep(grid, rover.x, rover.y, horizontalDir_)) {
+        if (canStep(grid, rover.x, rover.y, horizontalDir_)) {
             return horizontalDir_;
         }
         mode_ = Mode::SHIFT;
     }
 
     if (mode_ == Mode::SHIFT) {
-        if (!stagnant && canStep(grid, rover.x, rover.y, verticalShiftDir_)) {
+        if (canStep(grid, rover.x, rover.y, verticalShiftDir_)) {
             horizontalDir_ = oppositeDirection(horizontalDir_);
             mode_ = Mode::SWEEP;
             return verticalShiftDir_;
         }
         Direction otherVertical = oppositeDirection(verticalShiftDir_);
-        if (!stagnant && canStep(grid, rover.x, rover.y, otherVertical)) {
+        if (canStep(grid, rover.x, rover.y, otherVertical)) {
             verticalShiftDir_ = otherVertical;
             horizontalDir_ = oppositeDirection(horizontalDir_);
             mode_ = Mode::SWEEP;
             return verticalShiftDir_;
         }
 
-        // Sweep and shift are both blocked by an obstacle — or the sweep
-        // has stagnated without covering new floor: start hugging the
-        // nearest boundary instead of continuing to stall/oscillate.
+        // Sweep and shift are both blocked by an obstacle: start hugging
+        // its boundary. Heading = turnLeft(blocked direction) puts the
+        // obstacle on the rover's right, which is what the right-hand rule
+        // below assumes (starting with it straight ahead made the rule turn
+        // right into open floor and circle on the spot).
         mode_ = Mode::WALL_FOLLOW;
         sweepRow_ = rover.y;
+        hitX_ = rover.x;
         resumeDir_ = horizontalDir_;
-        followHeading_ = horizontalDir_;
+        followHeading_ = turnLeft(horizontalDir_);
         wallFollowSteps_ = 0;
         maxWallFollowSteps_ = 2 * (grid.getWidth() + grid.getHeight());
         // fall through to WALL_FOLLOW handling below
@@ -138,10 +149,14 @@ Direction ZigZagWallFollowHybrid::getNextMove(const Grid& grid, const RoverState
     followHeading_ = chosen;
 
     // Check whether the cell we're about to land on lets us rejoin the
-    // interrupted sweep line — if so, hand control back to SWEEP mode.
+    // interrupted sweep line on the FAR side of the obstacle — if so, hand
+    // control back to SWEEP mode. Without the "past hitX_" test this fired
+    // one cell before the obstacle, sending the rover straight back into it
+    // (an endless 2-cell oscillation).
     int nx, ny;
     applyStep(rover.x, rover.y, chosen, nx, ny);
-    if (ny == sweepRow_ && canStep(grid, nx, ny, resumeDir_)) {
+    bool pastObstacle = (resumeDir_ == Direction::RIGHT) ? nx > hitX_ : nx < hitX_;
+    if (ny == sweepRow_ && pastObstacle && canStep(grid, nx, ny, resumeDir_)) {
         mode_ = Mode::SWEEP;
         horizontalDir_ = resumeDir_;
     }

@@ -37,6 +37,10 @@ class GridUI {
             y: 0,
             direction: 0  // 0=NONE, 1=UP, 2=DOWN, 3=LEFT, 4=RIGHT
         };
+        // Where each run starts (the rover itself moves during a run).
+        this.start = { x: 0, y: 0 };
+        // Room edits (obstacle toggles / start moves) are blocked mid-run.
+        this.editable = true;
 
         // Event handling
         this.onCellClick = null;
@@ -89,6 +93,8 @@ class GridUI {
     }
 
     toggleObstacle(x, y) {
+        if (!this.editable) return;
+        if (x === this.start.x && y === this.start.y) return;  // never bury the rover
         if (this.grid[y][x] !== 2) {  // Don't place obstacle on cleaned cells
             this.grid[y][x] = this.grid[y][x] === 1 ? 0 : 1;
             this.draw();
@@ -97,10 +103,42 @@ class GridUI {
     }
 
     setRoverStart(x, y) {
+        if (!this.editable) return;
         if (this.grid[y][x] !== 1) {  // Can't start on obstacle
-            this.rover.x = x;
-            this.rover.y = y;
-            this.draw();
+            this.start = { x, y };
+            this.resetRover();
+        }
+    }
+
+    // Put the rover back on its start cell.
+    resetRover() {
+        this.rover.x = this.start.x;
+        this.rover.y = this.start.y;
+        this.rover.direction = 0;
+        this.draw();
+    }
+
+    // Turn cleaned cells back into floor, keeping obstacles.
+    clearCleaned() {
+        for (let y = 0; y < this.height; y++) {
+            for (let x = 0; x < this.width; x++) {
+                if (this.grid[y][x] === 2) this.grid[y][x] = 0;
+            }
+        }
+    }
+
+    // Move the start to the first accessible cell (row-major, like the C++
+    // RoomGenerator) if a generated room put an obstacle on it.
+    ensureStartAccessible() {
+        if (this.isAccessible(this.start.x, this.start.y)) return;
+        for (let y = 0; y < this.height; y++) {
+            for (let x = 0; x < this.width; x++) {
+                if (this.isAccessible(x, y)) {
+                    this.start = { x, y };
+                    this.resetRover();
+                    return;
+                }
+            }
         }
     }
 
@@ -230,6 +268,7 @@ class GridUI {
     // Utility methods for room generation
     clear() {
         this.grid = Array(this.height).fill(null).map(() => Array(this.width).fill(0));
+        this.start = { x: 0, y: 0 };
         this.rover.x = 0;
         this.rover.y = 0;
         this.rover.direction = 0;
@@ -243,6 +282,7 @@ class GridUI {
 
     setGrid(newGrid) {
         this.grid = JSON.parse(JSON.stringify(newGrid));
+        this.ensureStartAccessible();
         this.draw();
         this.updateObstacleCount();
     }
@@ -257,6 +297,7 @@ class GridUI {
         this.canvas.width = newWidth * this.cellSize;
         this.canvas.height = newHeight * this.cellSize;
         this.grid = Array(newHeight).fill(null).map(() => Array(newWidth).fill(0));
+        this.start = { x: 0, y: 0 };
         this.rover.x = 0;
         this.rover.y = 0;
         this.rover.direction = 0;

@@ -63,7 +63,8 @@ window.RVSim.Dashboard = class {
         barChart.className = 'bar-chart';
 
         const entries = Object.entries(dataMap);
-        const maxValue = Math.max(...entries.map(([_, v]) => v));
+        const maxValue = Math.max(0, ...entries.map(([_, v]) => v));
+        const maxBarPx = 150;  // matches .bar-chart min-height
 
         entries.forEach(([algoName, value]) => {
             const barItem = document.createElement('div');
@@ -71,8 +72,10 @@ window.RVSim.Dashboard = class {
 
             const bar = document.createElement('div');
             bar.className = 'bar';
-            const heightPercent = (value / maxValue) * 100;
-            bar.style.height = Math.max(20, heightPercent) + 'px';
+            // Guard 0/0 (all-zero metric gave NaN heights) and scale to a
+            // real pixel range instead of using the percentage as pixels.
+            const fraction = maxValue > 0 && Number.isFinite(value) ? value / maxValue : 0;
+            bar.style.height = Math.max(2, fraction * maxBarPx) + 'px';
 
             const label = document.createElement('div');
             label.className = 'bar-label';
@@ -80,7 +83,9 @@ window.RVSim.Dashboard = class {
 
             const valueDiv = document.createElement('div');
             valueDiv.className = 'bar-value';
-            valueDiv.textContent = value.toFixed(1) + (unit ? ' ' + unit : '');
+            // Ratios (< 1) need more digits: 0.0558 used to show as "0.1".
+            const digits = Math.abs(value) < 1 ? 3 : 1;
+            valueDiv.textContent = value.toFixed(digits) + (unit ? ' ' + unit : '');
 
             barItem.appendChild(bar);
             barItem.appendChild(valueDiv);

@@ -101,8 +101,9 @@ class RobotVacuumSimulator {
     startSimulation() {
         console.log('🚀 Starting simulation with:', this.currentAlgorithm);
 
-        // Disable room editing
+        // Disable room editing (controls and canvas clicks)
         this.setRoomControlsEnabled(false);
+        this.gridUI.editable = false;
 
         // Enable simulation controls
         document.getElementById('startBtn').disabled = true;
@@ -146,8 +147,11 @@ class RobotVacuumSimulator {
             this.simulator = null;
         }
 
-        // Reset rover to start position
-        this.gridUI.clear();
+        // Keep the room; only wipe the cleaned cells and put the rover back
+        // on its start cell (this used to call clear(), deleting the room)
+        this.gridUI.clearCleaned();
+        this.gridUI.resetRover();
+        this.gridUI.editable = true;
 
         // Re-enable room editing
         this.setRoomControlsEnabled(true);

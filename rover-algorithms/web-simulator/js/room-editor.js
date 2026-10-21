@@ -27,23 +27,32 @@ class RoomEditor {
         const height = this.gridUI.height;
         const grid = Array(height).fill(null).map(() => Array(width).fill(0));
 
-        const densityPercent = density / 100;
+        // Math.imul keeps the multiply in 32-bit integers; a plain `*`
+        // overflows 2^53, drops the low bits and degenerates.
+        const next = () => {
+            seed = (Math.imul(seed, 1103515245) + 12345) & 0x7fffffff;
+            return seed / 0x80000000;
+        };
+        const randInt = (lo, hi) => lo + Math.floor(next() * (hi - lo + 1));
 
-        for (let y = 0; y < height; y++) {
-            for (let x = 0; x < width; x++) {
-                seed = (seed * 1103515245 + 12345) & 0x7fffffff;
-                const random = (seed / 0x7fffffff);
-
-                if (random < densityPercent) {
-                    // Create small rectangular obstacles
-                    const obstacleSize = Math.floor(random * 3) + 2;
-                    for (let dy = 0; dy < obstacleSize && y + dy < height; dy++) {
-                        for (let dx = 0; dx < obstacleSize && x + dx < width; dx++) {
-                            grid[y + dy][x + dx] = 1;
-                        }
-                    }
+        // Same scheme as the C++ RoomGenerator::placeObstacles: `density` is
+        // the share of room AREA to cover with furniture-sized rectangles.
+        // (It used to be a per-cell chance of spawning a 2x2 block, which
+        // made "complex" ~34% obstacles instead of ~10%.)
+        const areaBudget = width * height * (density / 100);
+        let placedArea = 0;
+        for (let attempts = 0; placedArea < areaBudget && attempts < 5000; attempts++) {
+            const w = randInt(2, 4);
+            const h = randInt(2, 3);
+            if (w >= width - 2 || h >= height - 2) continue;
+            const ox = randInt(0, width - w - 1);
+            const oy = randInt(0, height - h - 1);
+            for (let y = oy; y < oy + h; y++) {
+                for (let x = ox; x < ox + w; x++) {
+                    grid[y][x] = 1;
                 }
             }
+            placedArea += w * h;
         }
 
         this.gridUI.setGrid(grid);

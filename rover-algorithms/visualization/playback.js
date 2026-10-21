@@ -11,16 +11,26 @@ window.RVSim.Playback = class {
         this.state = 'STOPPED';
         this.currentStepIndex = 0;
         this.cleanedSet = new Set();
+        this.builtIndex = 0;       // cleanedSet reflects trajectory[0 .. builtIndex-1]
+        this.pendingCells = [];    // cells added since the last emitted frame
+        this.needsFullRedraw = true;
         this.speedStepsPerSec = 30;
+        this.stepBudget = 0;       // fractional steps carried between frames
         this.animationFrame = null;
         this.lastTickTime = 0;
-        this.onFrame = null;  // callback(stepIndex, newCells, roverX, roverY, dirCode)
+        // callback(stepIndex, cells, roverX, roverY, dirCode, fullRedraw):
+        // fullRedraw=true  -> cells is every cleaned cell (repaint from scratch)
+        // fullRedraw=false -> cells is only what changed since the last frame
+        this.onFrame = null;
+        this.rebuildCleanedSet();
     }
 
     play() {
         if (this.state === 'PLAYING') return;
+        if (this.isAtEnd()) this.seek(0);  // Play at the end replays
         this.state = 'PLAYING';
-        this.lastTickTime = Date.now();
+        this.lastTickTime = performance.now();
+        this.stepBudget = 0;
         this.tick();
     }
 
@@ -35,7 +45,7 @@ window.RVSim.Playback = class {
     stop() {
         this.state = 'STOPPED';
         this.currentStepIndex = 0;
-        this.cleanedSet.clear();
+        this.rebuildCleanedSet();
         if (this.animationFrame) {
             cancelAnimationFrame(this.animationFrame);
             this.animationFrame = null;
@@ -72,12 +82,15 @@ window.RVSim.Playback = class {
     tick() {
         if (this.state !== 'PLAYING') return;
 
-        const now = Date.now();
-        const deltaMs = now - this.lastTickTime;
+        const now = performance.now();
+        const deltaMs = Math.min(now - this.lastTickTime, 100);
         this.lastTickTime = now;
 
-        // Calculate how many steps to advance this frame
-        const stepsPerFrame = Math.max(1, Math.round((this.speedStepsPerSec / 60) * (deltaMs / 16)));
+        // Fractional accumulator: the old max(1, round(...)) played every
+        // speed below ~90 steps/sec at the display frame rate.
+        this.stepBudget += this.speedStepsPerSec * deltaMs / 1000;
+        const stepsPerFrame = Math.floor(this.stepBudget);
+        this.stepBudget -= stepsPerFrame;
 
         for (let i = 0; i < stepsPerFrame; i++) {
             if (this.currentStepIndex < this.trajectory.length) {
@@ -96,14 +109,29 @@ window.RVSim.Playback = class {
         }
     }
 
-    updateCleanedSetToIndex() {
-        // Rebuild cleanedSet up to currentStepIndex
+    // The start cell is cleaned before step 1 and is not in the trajectory.
+    rebuildCleanedSet() {
         this.cleanedSet.clear();
-        for (let i = 0; i < this.currentStepIndex; i++) {
+        this.cleanedSet.add(this.room.startX + ',' + this.room.startY);
+        this.builtIndex = 0;
+        this.pendingCells = [];
+        this.needsFullRedraw = true;
+    }
+
+    // Forward moves only add the new entries (O(steps advanced)); moving
+    // backwards rebuilds from the start. Rebuilding on every frame made
+    // long (100k+ step) trajectories unplayable.
+    updateCleanedSetToIndex() {
+        if (this.currentStepIndex < this.builtIndex) this.rebuildCleanedSet();
+        for (let i = this.builtIndex; i < this.currentStepIndex; i++) {
             const step = this.trajectory[i];
             const key = step[0] + ',' + step[1];
-            this.cleanedSet.add(key);
+            if (!this.cleanedSet.has(key)) {
+                this.cleanedSet.add(key);
+                this.pendingCells.push(key);
+            }
         }
+        this.builtIndex = this.currentStepIndex;
     }
 
     emitFrame() {
@@ -120,10 +148,13 @@ window.RVSim.Playback = class {
             roverDir = step[2];
         }
 
-        // Collect all cleaned cells up to current index
-        const newCells = Array.from(this.cleanedSet);
+        this.updateCleanedSetToIndex();
+        const full = this.needsFullRedraw;
+        const cells = full ? Array.from(this.cleanedSet) : this.pendingCells;
+        this.pendingCells = [];
+        this.needsFullRedraw = false;
 
-        this.onFrame(this.currentStepIndex, newCells, roverX, roverY, roverDir);
+        this.onFrame(this.currentStepIndex, cells, roverX, roverY, roverDir, full);
     }
 
     isAtEnd() {

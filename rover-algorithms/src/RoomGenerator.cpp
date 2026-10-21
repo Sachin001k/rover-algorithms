@@ -62,7 +62,7 @@ Grid RoomGenerator::generateRoom(const RoomConfig& config, int& startX, int& sta
         return grid;
     }
 
-    return grid; // best effort after maxAttempts retries
+    return grid; // best effort 
 }
 
 void RoomGenerator::placeObstacles(Grid& grid, double densityFraction, std::mt19937& rng) {
@@ -71,8 +71,8 @@ void RoomGenerator::placeObstacles(Grid& grid, double densityFraction, std::mt19
     double totalArea = static_cast<double>(width) * static_cast<double>(height);
     double areaBudget = totalArea * densityFraction;
 
-    // Fixed, furniture-scale obstacle footprints (in grid cells) regardless
-    // of room size — a couch doesn't get bigger just because the room does.
+    // Fixed, furniture-scale obstacle footprints 
+    // of room size — a couch doesn't get bigger .
     std::uniform_int_distribution<int> obstacleW(2, 4);
     std::uniform_int_distribution<int> obstacleH(2, 3);
 

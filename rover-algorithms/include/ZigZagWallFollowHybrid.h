@@ -6,13 +6,12 @@
 // using namespace std;  // Avoid namespace pollution in headers
 // Hybrid #1 (section 2.4.3): behaves exactly like ZigZagAlgorithm while
 // sweeping open floor. It switches into a right-hand-rule wall-following
-// mode to hug an obstacle boundary whenever either (a) the sweep AND the
-// planned row-shift are both blocked, or (b) it has gone a long stretch of
-// steps without cleaning any new cell — a plain Zig-Zag can otherwise get
-// trapped indefinitely re-sweeping already-cleaned rows whenever an
-// obstacle keeps deflecting it back into territory it has already covered,
-// without ever being literally "blocked". It rejoins the original sweep
-// line as soon as that line is clear again.
+// mode to hug an obstacle boundary whenever the sweep AND the planned
+// row-shift are both blocked, and rejoins the original sweep line once it
+// is back on that row past the obstacle. If it goes a long stretch of steps
+// without cleaning any new cell (re-sweeping covered rows, or a boundary
+// loop that never finds a re-entry point) it walks the shortest path to the
+// nearest uncleaned cell and resumes sweeping there.
 class ZigZagWallFollowHybrid : public Algorithm {
 public:
     void reset(const Grid& grid, const RoverState& rover) override;
@@ -29,6 +28,7 @@ private:
     // State kept only while WALL_FOLLOW is active.
     Direction followHeading_ = Direction::NONE; // current wall-hugging heading
     int sweepRow_ = 0;                          // row we're trying to get back to
+    int hitX_ = 0;                              // column where the sweep was blocked
     Direction resumeDir_ = Direction::RIGHT;    // direction to resume sweeping in
     int wallFollowSteps_ = 0;
     int maxWallFollowSteps_ = 0;
